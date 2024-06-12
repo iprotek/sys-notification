@@ -3,6 +3,7 @@
 namespace iProtek\SysNotification;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Log;
 
 class iProtekNotificationServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,7 @@ class iProtekNotificationServiceProvider extends ServiceProvider
         */ 
         
         if ($this->app->runningInConsole()) {
+            Log::info('iProtekNotificationServiceProvider booted');
             $this->commands([
                 \iProtek\SysNotification\Console\Commands\IprotekSysNotificationTest::class,
             ]);
