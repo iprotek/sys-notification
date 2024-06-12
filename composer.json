@@ -1,0 +1,36 @@
+{
+    "name": "iprotek/sys-notification",
+    "description": "System updates",
+    "keywords": ["laravel", "plugin", "iprotek-notifications", "system-notification"],
+    "authors": [
+        {
+            "name": "Joseph Aguilar",
+            "email": "admin@iprotek.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "iProtek\\SysNotification\\": "src/",
+            "symfony/process":"^5.0" 
+        }
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "illuminate/support": "^8.0|^9.0|^10.0"
+    },
+    "type": "library",  
+    "license": "MIT", 
+    "require-dev": {
+    },
+    "suggest": {
+        "ext-intl": "System notifications and updates"
+    }, 
+    "extra": {
+        "laravel": {
+            "providers": [
+                "iProtek\\SysNotification\\iProtekNotificationServiceProvider"
+            ]
+        }
+    },
+    "version": "1.0.0" 
+}
