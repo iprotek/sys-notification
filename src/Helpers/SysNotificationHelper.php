@@ -37,10 +37,10 @@ class SysNotificationHelper
             $all_summary[]=[
                 "type"=>"git",
                 "name"=>$name,
-                "count"=>$git_system_updates->count,
-                "diff"=>static::diffForHumans($git_system_updates->created_at)
+                "count"=>$update->count,
+                "diff"=>static::diffForHumans($update->created_at)
             ];
-            $total = $total + $git_system_updates->count;
+            $total = $total + $update->count;
         }
 
         return ["summary"=>$all_summary,"total"=>$total];
