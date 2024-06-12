@@ -38,7 +38,7 @@ class iProtekNotificationServiceProvider extends ServiceProvider
         */ 
         
         if ($this->app->runningInConsole()) {
-            Log::info('iProtekNotificationServiceProvider booted');
+            //Log::info('iProtekNotificationServiceProvider booted');
             $this->commands([
                 \iProtek\SysNotification\Console\Commands\IprotekSysNotificationTest::class,
             ]);
