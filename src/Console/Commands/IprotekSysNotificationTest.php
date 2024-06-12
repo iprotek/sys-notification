@@ -37,7 +37,8 @@ class IprotekSysNotificationTest extends Command
      */
     public function handle()
     {
-        echo "Loaded Notification";
+        $result = \iProtek\SysNotification\Helpers\GitHelper::runGitCommand("git log --pretty=format:'{\"commit_hash\":\"%h\",\"author_name\":\"%an\",\"author_email\":\"%ae\",\"date\":\"%ad\",\"commit_message\":\"%s\",\"description\":\"%b\"},'  HEAD..FETCH_HEAD");
+        echo $result."Loaded Notification";
         //\App\Helpers\ScheduleHelper::updatePHPCurrency();
         //return 0;
     }
