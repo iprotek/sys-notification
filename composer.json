@@ -10,13 +10,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "iProtek\\SysNotification\\": "src/",
-            "symfony/process": "^5.0" 
+            "iProtek\\SysNotification\\": "src/"
         }
     },
     "require": {
         "php": ">=7.0.0",
-        "illuminate/support": "^8.0|^9.0|^10.0"
+        "illuminate/support": "^8.0|^9.0|^10.0",
+        "symfony/process": "^5.0" 
     },
     "type": "library",  
     "license": "MIT", 
