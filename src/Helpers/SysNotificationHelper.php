@@ -3,9 +3,47 @@
 namespace iProtek\SysNotification\Helpers;
 
 use iProtek\SysNotification\Models\SysNotification;
+use \Carbon\Carbon;
 
 class SysNotificationHelper
 {
+    public static function SystemUpdatesSummary(){
+
+
+        //Get System Updates
+        $all_summary = [];
+
+
+        $git_system_updates = SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " );
+        $all_summary[]=[
+            "type"=>"git",
+            "name"=>"System Updates",
+            "count"=>$git_system_updates['count'],
+            "diff"=>static::diffForHumans($git_system_updates['created_at'])
+        ];
+
+        return $all_summary;
+    }
+
+    public static function diffForHumans($datetimeString){
+        
+        // Example datetime string 
+        if(!$datetimeString)
+            return "";
+
+        // Parse the datetime string
+        $parsedDate = Carbon::parse($datetimeString);
+
+        // Current datetime
+        $now = Carbon::now();
+
+        // Get the human-readable difference
+        $difference = $parsedDate->diffForHumans($now);
+
+        return $difference;
+    }
+
+
     public static function checkSystemUpdates($is_auto = 0){
         $user_id = 0; 
         $requested_pay_account_id = 0;
