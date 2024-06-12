@@ -11,9 +11,6 @@ class SysNotificationController extends BaseController
     //
 
     public function index(Request $request){
-        if(auth()->check()){
-            return "Logged";
-        } 
         return view("iprotek_sys_notification::index");
     }
 
