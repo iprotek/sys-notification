@@ -11,7 +11,7 @@
     "autoload": {
         "psr-4": {
             "iProtek\\SysNotification\\": "src/",
-            "symfony/process":"^5.0" 
+            "symfony/process": "^5.0" 
         }
     },
     "require": {
