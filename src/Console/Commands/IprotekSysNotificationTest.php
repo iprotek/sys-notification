@@ -41,8 +41,8 @@ class IprotekSysNotificationTest extends Command
         //$result = \iProtek\SysNotification\Helpers\GitHelper::runGitCommand("git log --pretty=format:{\"commit_hash\":\"%h\",\"author_name\":\"%an\",\"author_email\":\"%ae\",\"date\":\"%ad\",\"commit_message\":\"%s\",\"description\":\"%b\"},  HEAD..FETCH_HEAD");
         
         //$result = \iProtek\SysNotification\Helpers\GitHelper::runGitCommand("git log --pretty=%s HEAD..FETCH_HEAD");
-        
-        var_dump($result);
+        echo json_encode($result);
+        //var_dump($result);
         //\App\Helpers\ScheduleHelper::updatePHPCurrency();
         //return 0;
     }

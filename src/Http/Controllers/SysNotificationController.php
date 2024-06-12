@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController; 
 use App\Models\UserAdminPayAccount;
 use iProtek\SysNotification\Models\SysNotification;
+use Illuminate\Support\Facades\Artisan;
 
 class SysNotificationController extends BaseController
 {
@@ -33,6 +34,8 @@ class SysNotificationController extends BaseController
     }
 
     public function check_system_updates(Request $request){
+        Artisan::call("iprotek-sys-notification:test");
+        return Artisan::output();
         return \iProtek\SysNotification\Helpers\SysNotificationHelper::checkSystemUpdates();
     }
 
