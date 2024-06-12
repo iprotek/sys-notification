@@ -14,6 +14,8 @@ class SysNotificationController extends BaseController
         return view("iprotek_sys_notification::index");
     }
 
+
+
     public function contact_projects(Request $request, ProjectData $id){
         if($id->data_model_type == 'project')
             return [];
