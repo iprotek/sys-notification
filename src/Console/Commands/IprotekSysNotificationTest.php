@@ -11,7 +11,7 @@ class IprotekSysNotificationTest extends Command
      *
      * @var string
      */
-    protected $signature = 'iprotek-sys-notification:test';
+    protected $signature = 'iprotek:sys-notification-test';
 
     /**
      * The console command description.
