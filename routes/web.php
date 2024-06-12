@@ -8,5 +8,5 @@ use iProtek\SysNotification\Http\Controllers;
 //});
 
 Route::prefix('manage/sys-notification')->name('manage.sys-notification')->middleware(['auth'])->group(function(){
-    Route::get('/test', [SysNotificationController::class, 'index'])->name('.test');
+    Route::get('/test', [\iProtek\SysNotification\Http\Controllers\SysNotificationController::class, 'index'])->name('.test');
 });
