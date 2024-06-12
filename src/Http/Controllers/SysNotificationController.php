@@ -34,8 +34,8 @@ class SysNotificationController extends BaseController
     }
 
     public function check_system_updates(Request $request){
-        Artisan::call('iprotek:sys-notification-test');
-        return Artisan::output();
+        //Artisan::call('iprotek:sys-notification-test');
+        //return Artisan::output();
         return \iProtek\SysNotification\Helpers\SysNotificationHelper::checkSystemUpdates();
     }
 
