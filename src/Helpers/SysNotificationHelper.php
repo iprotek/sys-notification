@@ -22,6 +22,8 @@ class SysNotificationHelper
             "diff"=>static::diffForHumans($git_system_updates->created_at)
         ];
 
+
+
         return $all_summary;
     }
 
@@ -38,7 +40,7 @@ class SysNotificationHelper
         $now = Carbon::now();
 
         // Get the human-readable difference
-        $difference = $parsedDate->diffForHumans($now);
+        $difference = $now->diffForHumans($parsedDate);
 
         return $difference;
     }
