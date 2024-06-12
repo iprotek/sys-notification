@@ -64,7 +64,7 @@ class SysNotificationHelper
                 "type"=>"git",
                 "summary"=>$log['commit_message']?:"",
                 "description"=>$log['description']?:"",
-                "ref_id"=>$log['commit_has'],
+                "ref_id"=>$log['commit_hash'],
                 "status"=>"pending",
                 "is_auto"=>$is_auto,
                 "requested_by"=>$user_id,
