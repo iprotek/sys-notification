@@ -7,6 +7,13 @@ use iProtek\SysNotification\Models\SysNotification;
 class SysNotificationHelper
 {
     public static function checkUpdates(){
+        $user_id = 0;
+        $is_auto = 0;
+        $requested_pay_account_id = 0;
+        if(auth()->check()){
+            $user_id = auth()->user()->id;
+        }
+
 
         //git fetch
         $fetch_result = GitHelper::runGitCommand("git fetch");
@@ -43,10 +50,32 @@ class SysNotificationHelper
 
 
         //Saving updates to system notifications
+        foreach($log_arr as $log){
+
+            //Check if exists
+            $exists = SysNotification::where(["name"=>"System Update", "type"=>"git" , "ref_id"=>$log['commit_hash']])->first();
+            if($exists){
+                continue;
+            }
+
+            //ADD
+            SysNotification::create([
+                "name"=>"System Update", 
+                "type"=>"git",
+                "summary"=>$log['commit_message']?:"",
+                "description"=>$log['description']?:"",
+                "ref_id"=>$log['commit_has'],
+                "status"=>"pending",
+                "is_auto"=>$is_auto,
+                "requested_by"=>$user_id,
+                "requested_pay_account_id"=>$requested_pay_account_id
+            ]);
 
 
 
+        }
+        $notifs = SysNotification::where(["type"=>'git',"status"=>"pending"])->select('id','summary','description')->get();
 
-        return  ["status"=>1,"message"=>"Gather completed.", "data"=>$log_arr];
+        return  ["status"=>1,"message"=>"Gather completed.", "updates"=>$notifs];
     }
 }
