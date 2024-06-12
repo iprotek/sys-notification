@@ -15,7 +15,7 @@ Route::middleware(['web'])->group(function(){
     Route::get('/system-updates', [SysNotificationController::class, 'system_updates'])->name('.system-updates');
     Route::post('/check-system-updates', [SysNotificationController::class, 'check_system_updates'])->name('.check-system-updates');
     Route::get('/system-updates-summary', [SysNotificationController::class, 'system_updates_summary'])->name('.check-system-summary');
-    Route::post('/appy-system-updates', [SysNotificationController::class, 'apply_system_updates'])->name('.apply-system-updates');
+    Route::post('/apply-system-updates', [SysNotificationController::class, 'apply_system_updates'])->name('.apply-system-updates');
   });
 
 });
