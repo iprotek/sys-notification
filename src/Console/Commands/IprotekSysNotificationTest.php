@@ -37,7 +37,7 @@ class IprotekSysNotificationTest extends Command
      */
     public function handle()
     {
-        $result = \iProtek\SysNotification\Helpers\SysNotificationHelper::checkUpdates();
+        $result = \iProtek\SysNotification\Helpers\SysNotificationHelper::checkSystemUpdates();
         //$result = \iProtek\SysNotification\Helpers\GitHelper::runGitCommand("git log --pretty=format:{\"commit_hash\":\"%h\",\"author_name\":\"%an\",\"author_email\":\"%ae\",\"date\":\"%ad\",\"commit_message\":\"%s\",\"description\":\"%b\"},  HEAD..FETCH_HEAD");
         
         //$result = \iProtek\SysNotification\Helpers\GitHelper::runGitCommand("git log --pretty=%s HEAD..FETCH_HEAD");

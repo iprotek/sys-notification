@@ -32,6 +32,14 @@ class SysNotificationController extends BaseController
 
     }
 
+    public function check_system_updates(Request $request){
+        return \iProtek\SysNotification\Helpers\SysNotificationHelper::checkSystemUpdates();
+    }
+
+    public function apply_system_updates(Request $request){
+        return \iProtek\SysNotification\Helpers\SysNotificationHelper::applySystemUpdates();
+    }
+
 
 
     public function contact_projects(Request $request, ProjectData $id){

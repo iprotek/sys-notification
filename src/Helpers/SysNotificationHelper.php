@@ -6,7 +6,7 @@ use iProtek\SysNotification\Models\SysNotification;
 
 class SysNotificationHelper
 {
-    public static function checkUpdates($is_auto = 0){
+    public static function checkSystemUpdates($is_auto = 0){
         $user_id = 0; 
         $requested_pay_account_id = 0;
         if(auth()->check()){
@@ -78,7 +78,7 @@ class SysNotificationHelper
         return  ["status"=>1,"message"=>"Gathers completed.", "updates"=>$notifs];
     }
 
-    public static function executeUpdates($is_auto = 0, $force = false){
+    public static function applySystemUpdates($is_auto = 0, $force = false){
         $user_id = 0; 
         $requested_pay_account_id = 0;
         if(auth()->check()){
@@ -113,6 +113,7 @@ class SysNotificationHelper
         }
         foreach($notifs as $notif){
             $notif->updated_by = $user_id;
+            $notif->is_auto = $is_auto;
             $notif->updated_pay_account_id = $requested_pay_account_id;
             $notif->status = "completed";
             $notif->save();
