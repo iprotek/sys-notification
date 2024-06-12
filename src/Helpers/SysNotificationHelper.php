@@ -53,7 +53,7 @@ class SysNotificationHelper
         foreach($log_arr as $log){
 
             //Check if exists
-            $exists = SysNotification::where(["name"=>"System Update", "type"=>"git" , "ref_id"=>$log['commit_hash']])->first();
+            $exists = SysNotification::where("name","System Update")->where( "type","git")->where("ref_id",$log['commit_hash'])->first();
             if($exists){
                 continue;
             }
@@ -74,7 +74,7 @@ class SysNotificationHelper
 
 
         }
-        $notifs = SysNotification::where(["type"=>'git',"status"=>"pending"])->select('id','summary','description')->get();
+        $notifs = SysNotification::where("type",'git')->where("status","pending")->select('id','summary','description')->get();
 
         return  ["status"=>1,"message"=>"Gathers completed.", "updates"=>$notifs];
     }
