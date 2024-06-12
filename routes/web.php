@@ -11,7 +11,7 @@ Route::middleware(['web'])->group(function(){
  
   Route::middleware(['auth'])->prefix('manage/sys-notification')->name('manage.sys-notification')->group(function(){
     Route::get('/test', [SysNotificationController::class, 'index'])->name('.test');
-
+    Route::get('/system-updates', [SysNotificationController::class, 'system_updates'])->name('.system-updates');
   });
 
 });

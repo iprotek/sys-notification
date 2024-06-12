@@ -5,6 +5,7 @@ namespace iProtek\SysNotification\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController; 
 use App\Models\UserAdminPayAccount;
+use iProtek\SysNotification\Models\SysNotification;
 
 class SysNotificationController extends BaseController
 {
@@ -12,6 +13,23 @@ class SysNotificationController extends BaseController
 
     public function index(Request $request){
         return view("iprotek_sys_notification::index");
+    }
+
+    public function system_updates(Request $request){
+        
+        $notifs = SysNotification::on();
+        if($request->status)
+            $notifs->where('status', $request->status); 
+        
+        if($request->search){
+            $search_text = str_replace(' ','%', $request->search?:"");
+            $notifs->whereRaw(" CONCAT(name, IFNULL( summary,''), IFNULL(description, '')) LIKE CONCAT('%',?,'%')",[$search_text]);
+        }
+
+        $notifs->orderBy('id','DESC');
+         
+        return $notifs->paginate(10);
+
     }
 
 

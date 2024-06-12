@@ -6,9 +6,8 @@ use iProtek\SysNotification\Models\SysNotification;
 
 class SysNotificationHelper
 {
-    public static function checkUpdates(){
-        $user_id = 0;
-        $is_auto = 0;
+    public static function checkUpdates($is_auto = 0){
+        $user_id = 0; 
         $requested_pay_account_id = 0;
         if(auth()->check()){
             $user_id = auth()->user()->id;
@@ -77,5 +76,47 @@ class SysNotificationHelper
         $notifs = SysNotification::where("type",'git')->where("status","pending")->select('id','summary','description')->get();
 
         return  ["status"=>1,"message"=>"Gathers completed.", "updates"=>$notifs];
+    }
+
+    public static function executeUpdates($is_auto = 0, $force = false){
+        $user_id = 0; 
+        $requested_pay_account_id = 0;
+        if(auth()->check()){
+            $user_id = auth()->user()->id;
+        }
+
+        //
+        if($force){
+            $result = static::checkUpdates();
+            if($result['status'] == 0){
+                return $result;
+            }
+            if($result['status'] == 1 && ( !$result['updates']  || count($result['updates']) == 0)){
+                return ["status"=>1, "message"=>"Currently updated."];
+            }
+        }
+
+        $notifs = SysNotification::where("type",'git')->whereRaw(" status<>'completed' ")->get();
+        if(count($notifs)<=0){
+            return ["status"=>1, "message"=>"Nothing to update."];
+        }
+
+
+        $check_out_result = GitHelper::runGitCommand("git checkout main");
+        if($check_out_result === null){
+            return ["status"=>0, "message"=>"Failed to render updates."];
+        }
+
+        $merge_result = GitHelper::runGitCommand("git merge");
+        if($merge_result === null){
+            return ["status"=>0, "message"=>"Update Failed."];
+        }
+        foreach($notifs as $notif){
+            $notif->updated_by = $user_id;
+            $notif->updated_pay_account_id = $requested_pay_account_id;
+            $notif->status = "completed";
+            $notif->save();
+        }
+        return ["status"=>1, "message"=>"Successfully Updated."];
     }
 }
