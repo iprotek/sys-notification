@@ -14,7 +14,7 @@ class SysNotificationHelper
         $all_summary = [];
 
 
-        $git_system_updates = SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " )[0];
+        $git_system_updates = \BB::select(" SELECT count(*) as count, min(created_at) as created_at FROM sys_notifications WHERE status='pending' AND `type`='git' ")[0]; // SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " )->get()[0];
         $all_summary[]=[
             "type"=>"git",
             "name"=>"System Updates",
