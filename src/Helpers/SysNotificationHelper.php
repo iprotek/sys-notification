@@ -18,8 +18,8 @@ class SysNotificationHelper
         $all_summary[]=[
             "type"=>"git",
             "name"=>"System Updates",
-            "count"=>$git_system_updates['count'],
-            "diff"=>static::diffForHumans($git_system_updates['created_at'])
+            "count"=>$git_system_updates->count,
+            "diff"=>static::diffForHumans($git_system_updates->created_at)
         ];
 
         return $all_summary;
