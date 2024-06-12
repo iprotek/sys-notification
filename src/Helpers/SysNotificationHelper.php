@@ -36,6 +36,8 @@ class SysNotificationHelper
         // Parse the datetime string
         $parsedDate = Carbon::parse($datetimeString);
 
+        return $parsedDate->diffForHumans();
+
         // Current datetime
         $now = Carbon::now();
 
