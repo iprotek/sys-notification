@@ -9,7 +9,10 @@ class GitHelper
     
     public static function runGitCommand(string $command): string {
         // Create a new Process instance with the given command
-        $process = new Process(explode(' ', $command));
+
+        $args = array_filter(explode(' ', $command));
+
+        $process = new Process($args);
     
         // Run the process
         $process->run();
