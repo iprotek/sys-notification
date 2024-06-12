@@ -37,7 +37,7 @@ class SysNotificationHelper
         //$log_result - convert this to json and 
         if(strlen($log_result) > 1){
             $log_result = substr($log_result, 0, -1);
-            $log_arr = json_decode($log_result, TRUE);
+            $log_arr = json_decode( "[".$log_result."]", TRUE);
         }
 
         if(!is_array($log_arr)){
