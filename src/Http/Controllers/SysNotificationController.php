@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController; 
 use App\Models\UserAdminPayAccount;
 
-class DataController extends BaseController
+class SysNotificationController extends BaseController
 {
     //
+
+    public function index(Request $request){
+        return view("iprotek_sys_notification::index");
+    }
 
     public function contact_projects(Request $request, ProjectData $id){
         if($id->data_model_type == 'project')
