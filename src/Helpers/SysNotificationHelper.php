@@ -12,19 +12,38 @@ class SysNotificationHelper
 
         //Get System Updates
         $all_summary = [];
+        $total = 0;
 
+        //GIT
+        $system_updates = \DB::select("SELECT count(*) as count, `type`, min(created_at) as created_at FROM sys_notifications WHERE status='pending' group by `type` "); // SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " )->get()[0];
+        foreach($system_updates as $update){
+            $name = $update->type;
+            if($update->type == 'git'){
+                $name = "System Updates";
+            }
+            else if($update->type == 'report'){
+                $name = "Reports";
+            }
+            else if($update->type == 'message'){
+                $name = "New Messages";
+            }
+            else if($update->type == 'friend-request'){
+                $name = "Friend Request";
+            }
+            else{
+                $name = strtoupper($name);
+            }
+           
+            $all_summary[]=[
+                "type"=>"git",
+                "name"=>$name,
+                "count"=>$git_system_updates->count,
+                "diff"=>static::diffForHumans($git_system_updates->created_at)
+            ];
+            $total = $total + $git_system_updates->count;
+        }
 
-        $git_system_updates = \DB::select(" SELECT count(*) as count, min(created_at) as created_at FROM sys_notifications WHERE status='pending' AND `type`='git' ")[0]; // SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " )->get()[0];
-        $all_summary[]=[
-            "type"=>"git",
-            "name"=>"System Updates",
-            "count"=>$git_system_updates->count,
-            "diff"=>static::diffForHumans($git_system_updates->created_at)
-        ];
-
-
-
-        return $all_summary;
+        return ["summary"=>$all_summary,"total"=>$total];
     }
 
     public static function diffForHumans($datetimeString){
