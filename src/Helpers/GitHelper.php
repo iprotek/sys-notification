@@ -20,7 +20,7 @@ class GitHelper
         // Check if the process was successful
         if (!$process->isSuccessful()) {
             // Throw an exception if the process failed
-            //throw new ProcessFailedException($process);
+            throw new ProcessFailedException($process);
             return null;
         }
     
