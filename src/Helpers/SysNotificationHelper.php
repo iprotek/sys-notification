@@ -108,6 +108,11 @@ class SysNotificationHelper
             $log_result = str_replace(array("\r", "\n", "\r\n", "
 "), array("\\r\\n", "\\r", "\\n", "\\n"), $log_result);
 
+
+            $array = preg_split("/\r\n|\n|\r/", $log_result);
+            Log::error("Count:".count($array));
+
+
             $log_arr = json_decode( "[".$log_result."]", TRUE);
         }
 
