@@ -20,9 +20,9 @@ class GitHelper
             //array_unshift($args, "cd");
             //$process = new Process(["cd", base_path()]);
             //$process->run();
-            $args[] = " --working-dir=".base_path();
             $base_path = base_path();
-            $process = new Process($args, base_path(), [
+            $args[] = " --working-dir=".$base_path ;
+            $process = new Process($args, $base_path , [
                 "HOME"=>$base_path
             ]);
         }
