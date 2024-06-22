@@ -135,6 +135,8 @@ class SysNotificationHelper
 
         }
         $notifs = SysNotification::where("type",'git')->where("status","pending")->select('id','summary','description')->get();
+        if( count($notifs) == 0 )
+        return  ["status"=>1,"message"=>"You are currently updated."];
 
         return  ["status"=>1,"message"=>"Gathers completed.", "updates"=>$notifs];
     }
