@@ -4,6 +4,7 @@ namespace iProtek\SysNotification\Helpers;
 
 use iProtek\SysNotification\Models\SysNotification;
 use \Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class SysNotificationHelper
 {
@@ -103,9 +104,13 @@ class SysNotificationHelper
         if(!is_array($log_arr)){
             ["status"=>0,"message"=>"Update logs error."];
         }
-
-        if(count($log_arr)<= 0){
-            ["status"=>1,"message"=>"You are updated."];
+        try{
+            if(count($log_arr)<= 0){
+                ["status"=>1,"message"=>"You are updated."];
+            }
+        }catch(\Exception $ex){
+            Log::error($ex);
+            return;
         }
 
 
