@@ -85,7 +85,7 @@ class SysNotificationHelper
 
 
         //git log ----
-        $git_log = "git log --pretty=format:\"{\\\"commit_hash\\\":\\\"%h\\\",\\\"author_name\\\":\\\"%an\\\",\\\"author_email\\\":\\\"%ae\\\",\\\"date\\\":\\\"%ad\\\",\\\"commit_message\\\":\\\"%s\\\",\\\"description\\\":\\\"%b\\\"},\" HEAD..FETCH_HEAD";
+        $git_log = "git log --pretty=format:{\"commit_hash\":\"%h\",\"author_name\":\"%an\",\"author_email\":\"%ae\",\"date\":\"%ad\",\"commit_message\":\"%s\",\"description\":\"%b\"},  HEAD..FETCH_HEAD";
         $log_result = GitHelper::runGitCommand($git_log);
 
         if($log_result === null){
