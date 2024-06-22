@@ -16,6 +16,7 @@ class GitHelper
 
         if($is_composer){
             Log::error("TEST: ".base_path());
+            array_unshift($args, base_path());
             $args[] = " --working-dir=".base_path();
             $base_path = base_path();
             $process = new Process($args, null, [
