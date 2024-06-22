@@ -30,6 +30,9 @@ class SysNotificationController extends _CommonController
             $notifs->whereRaw(" CONCAT(name, IFNULL( summary,''), IFNULL(description, '')) LIKE CONCAT('%',?,'%')",[$search_text]);
         }
 
+
+        $notifs->where('type', 'git');
+
         $notifs->orderBy('id','DESC');
          
         return $notifs->paginate(10);
