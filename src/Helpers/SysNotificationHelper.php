@@ -87,6 +87,7 @@ class SysNotificationHelper
         //git log ----
         $git_log = "git log --pretty=format:\"{\\\"commit_hash\\\":\\\"%h\\\",\\\"author_name\\\":\\\"%an\\\",\\\"author_email\\\":\\\"%ae\\\",\\\"date\\\":\\\"%ad\\\",\\\"commit_message\\\":\\\"%s\\\",\\\"description\\\":\\\"%b\\\"},\" HEAD..FETCH_HEAD";
         $log_result = GitHelper::runGitCommand($git_log);
+
         if($log_result === null){
             return ["status"=>0,"message"=>"Failed to get logs."];
         }
@@ -98,6 +99,10 @@ class SysNotificationHelper
 
         //$log_result - convert this to json and 
         if(strlen($log_result) > 1){
+            if(substr($log_result,0, 1) == "\""){
+                $log_result = substr($log_result, 1);
+            }
+
             $log_result = substr($log_result, 0, -1);
             $log_arr = json_decode( "[".$log_result."]", TRUE);
         }
@@ -107,7 +112,7 @@ class SysNotificationHelper
         }
 
         try{
-            Log::error( $log_result);
+            Log::error($log_result);
             Log::error($log_arr);
             Log::error($git_log);
 
