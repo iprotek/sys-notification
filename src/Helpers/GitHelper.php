@@ -22,7 +22,7 @@ class GitHelper
         if (!$process->isSuccessful()) {
             // Throw an exception if the process failed
             //throw new ProcessFailedException($process);
-            Log::error($process);
+            //Log::error($process);
             Log::error($process->getMessage());
             return null;
         }
