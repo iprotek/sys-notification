@@ -14,14 +14,8 @@ class GitHelper
 
         $args = array_filter(explode(' ', $command));
 
-        if($is_composer){
-            Log::error("TEST: ".base_path());
-            //array_unshift($args, base_path()."\r\n");
-            //array_unshift($args, "cd");
-            //$process = new Process(["cd", base_path()]);
-            //$process->run();
-            $base_path = base_path();
-            //$args[] = " --working-dir=".$base_path ;
+        if($is_composer){ 
+            $base_path = base_path(); 
             $process = new Process($args, $base_path , [
                 "HOME"=>$base_path
             ]);
