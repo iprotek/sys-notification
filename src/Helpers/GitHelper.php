@@ -3,6 +3,7 @@
 namespace iProtek\SysNotification\Helpers; 
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Log;
 
 class GitHelper
 {
@@ -21,6 +22,8 @@ class GitHelper
         if (!$process->isSuccessful()) {
             // Throw an exception if the process failed
             //throw new ProcessFailedException($process);
+            Log::error($process);
+            Log::error($process->getMessage());
             return null;
         }
     
