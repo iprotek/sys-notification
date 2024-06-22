@@ -99,6 +99,7 @@ class SysNotificationHelper
 
         //$log_result - convert this to json and 
         if(strlen($log_result) > 1){
+            $log_result = mb_convert_encoding($log_result, 'UTF-8', 'auto');
             if(substr($log_result,0, 1) == "\""){
                 $log_result = substr($log_result, 1);
             }
