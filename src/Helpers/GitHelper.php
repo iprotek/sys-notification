@@ -15,8 +15,8 @@ class GitHelper
 
         if($is_composer){
             $process = new Process($args, null, [
-                'COMPOSER_HOME' => base_path(),
-                'HOME' => base_path(),
+                'COMPOSER_HOME' => base_path()."../",
+                'HOME' => base_path()."../",
             ]);
         }
         else
