@@ -104,7 +104,9 @@ class SysNotificationHelper
         if(!is_array($log_arr)){
             ["status"=>0,"message"=>"Update logs error."];
         }
+
         try{
+            Log::error($log_arr);
             if(count($log_arr)<= 0){
                 ["status"=>1,"message"=>"You are updated."];
             }
