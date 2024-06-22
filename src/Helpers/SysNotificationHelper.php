@@ -106,7 +106,7 @@ class SysNotificationHelper
 
             $log_result = substr($log_result, 0, -1);
 
-            $log_result = preg_replace('/\r\n|\r|\n/', '', $log_result);
+            $log_result = preg_replace('/\r\n|\r|\n/', '\\n', $log_result);
 
             $array = preg_split("/\r\n|\n|\r/", $log_result);
             //Log::error("Count:".count($array));
@@ -193,10 +193,21 @@ class SysNotificationHelper
         $composer_updates = [];
         //COMPOSER UPDATE
         foreach($notifs as $notif){
-            if($notif == "*UPDATES*"){
-                if(!in_array($notif->description, $composer_updates)){
-                    $composer_updates[] = $notif->description;
+            
+            if($notif->description == "*UPDATES*"){
+
+                $descs = explode("\\n", $notif->description);
+                foreach($descs as $str){ 
+                    $str = trim($str);
+                    if($str){
+                        if(!in_array($str, $composer_updates)){
+                            $composer_updates[] = $str;
+                        }
+                    }
                 }
+            }
+            if($notif->description == "MIGRATES"){
+                $has_migrations = true;
             }
         }
 
