@@ -208,7 +208,7 @@ class SysNotificationHelper
         }
 
         foreach($composer_updates as $comp){
-            if( GitHelper::runGitCommand($comp) === null){
+            if( GitHelper::runGitCommand($comp, true) === null){
                 $update_results[] = "Failed: ".$comp;
             }
         }

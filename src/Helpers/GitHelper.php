@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 class GitHelper
 {
     
-    public static function runGitCommand(string $command){
+    public static function runGitCommand(string $command, $show_error=false){
         // Create a new Process instance with the given command
 
         $args = array_filter(explode(' ', $command));
@@ -21,9 +21,10 @@ class GitHelper
         // Check if the process was successful
         if (!$process->isSuccessful()) {
             // Throw an exception if the process failed
-            //throw new ProcessFailedException($process);
+            if( $show_error !== false )
+                throw new ProcessFailedException($process);
             //Log::error($process);
-            Log::error($process->getMessage());
+            //Log::error($process->getMessage());
             return null;
         }
     
