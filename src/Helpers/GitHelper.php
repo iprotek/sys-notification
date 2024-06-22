@@ -9,13 +9,15 @@ class GitHelper
 {
     
     public static function runGitCommand(string $command, $show_error=false, $is_composer = false){
-        // Create a new Process instance with the given command
+        // Create a new Process instance with the given command 
+
 
         $args = array_filter(explode(' ', $command));
 
         if($is_composer){
             Log::error("TEST: ".base_path());
-            $process = new Process($args." --working-dir=".base_path(), null, [
+            $args[] = " --working-dir=".base_path();
+            $process = new Process($args, null, [
                 'COMPOSER_HOME' => base_path()."../",
                 'HOME' => base_path()."../",
             ]);
