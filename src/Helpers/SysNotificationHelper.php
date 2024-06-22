@@ -85,7 +85,8 @@ class SysNotificationHelper
 
 
         //git log ----
-        $log_result = GitHelper::runGitCommand("git log --pretty=format:\"{\\\"commit_hash\\\":\\\"%h\\\",\\\"author_name\\\":\\\"%an\\\",\\\"author_email\\\":\\\"%ae\\\",\\\"date\\\":\\\"%ad\\\",\\\"commit_message\\\":\\\"%s\\\",\\\"description\\\":\\\"%b\\\"},\" HEAD..FETCH_HEAD");
+        $git_log = "git log --pretty=format:\"{\\\"commit_hash\\\":\\\"%h\\\",\\\"author_name\\\":\\\"%an\\\",\\\"author_email\\\":\\\"%ae\\\",\\\"date\\\":\\\"%ad\\\",\\\"commit_message\\\":\\\"%s\\\",\\\"description\\\":\\\"%b\\\"},\" HEAD..FETCH_HEAD";
+        $log_result = GitHelper::runGitCommand($git_log);
         if($log_result === null){
             return ["status"=>0,"message"=>"Failed to get logs."];
         }
@@ -106,7 +107,10 @@ class SysNotificationHelper
         }
 
         try{
+            Log::error( $log_result);
             Log::error($log_arr);
+            Log::error($git_log);
+
             if(count($log_arr)<= 0){
                 ["status"=>1,"message"=>"You are updated."];
             }
