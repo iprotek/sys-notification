@@ -190,7 +190,7 @@ class SysNotificationHelper
         //COMPOSER UPDATE
         foreach($notifs as $notif){
             
-            if($notif->description == "*UPDATES*"){
+            if($notif->summary == "*UPDATES*"){
 
                 $descs = explode("\\n", $notif->description);
                 foreach($descs as $str){ 
@@ -202,7 +202,7 @@ class SysNotificationHelper
                     }
                 }
             }
-            if($notif->description == "*MIGRATES*"){
+            if($notif->summary == "*MIGRATES*"){
                 $has_migrations = true;
             }
         }
