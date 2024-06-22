@@ -107,11 +107,6 @@ class SysNotificationHelper
             $log_result = substr($log_result, 0, -1);
 
             $log_result = preg_replace('/\r\n|\r|\n/', '', $log_result);
-            /*
-            $log_result = str_replace(array("\r", "\n", "\r\n", "
-"), array("\\r\\n", "\\r", "\\n", "\\n"), $log_result);
-*/
-
 
             $array = preg_split("/\r\n|\n|\r/", $log_result);
             //Log::error("Count:".count($array));
@@ -188,9 +183,36 @@ class SysNotificationHelper
             }
         }
 
+        $has_migrations = false;
+        $update_results = [];
         $notifs = SysNotification::where("type",'git')->whereRaw(" status<>'completed' ")->get();
         if(count($notifs)<=0){
             return ["status"=>1, "message"=>"Nothing to update."];
+        }
+
+        $composer_updates = [];
+        //COMPOSER UPDATE
+        foreach($notifs as $notif){
+            if($notif == "*UPDATES*"){
+                if(!in_array($notif->description, $composer_updates)){
+                    $composer_updates[] = $notif->description;
+                }
+            }
+        }
+
+        foreach($composer_updates as $comp){
+            if( GitHelper::runGitCommand($comp) === null){
+                $update_results[] = "Failed: ".$comp;
+            }
+        }
+
+
+
+        //MIGRATION
+        if($has_migrations == true){
+            if( GitHelper::runGitCommand("php artisan migrate") === null ){
+                $update_results[] = "Migration successful.";
+            }
         }
 
 
@@ -210,6 +232,6 @@ class SysNotificationHelper
             $notif->status = "completed";
             $notif->save();
         }
-        return ["status"=>1, "message"=>"Successfully Updated."];
+        return ["status"=>1, "message"=>"Successfully Updated.", "updates"=>$update_results ];
     }
 }
