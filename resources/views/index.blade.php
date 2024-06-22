@@ -35,7 +35,7 @@
 
 @section('foot')
   <script>
-   // ActivateMenu(['menu-searches']);
+    ActivateMenu(['menu-system-updates']);
   </script>
   <script src="/iprotek/js/manage/notification-view.js"> </script>
 @endsection
