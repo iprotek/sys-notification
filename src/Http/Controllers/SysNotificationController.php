@@ -7,10 +7,12 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Models\UserAdminPayAccount;
 use iProtek\SysNotification\Models\SysNotification;
 use Illuminate\Support\Facades\Artisan;
+use iProtek\Core\Http\Controllers\_Common\_CommonController;
 
-class SysNotificationController extends BaseController
+class SysNotificationController extends _CommonController
 {
     //
+    public $guard = 'admin';
 
     public function index(Request $request){
         return view("iprotek_sys_notification::index");
