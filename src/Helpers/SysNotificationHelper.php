@@ -105,9 +105,9 @@ class SysNotificationHelper
 
             $log_result = substr($log_result, 0, -1);
 
-            $log_result = str_replace('\r\n', "\\n", $log_result );
-            $log_result = str_replace('\n', "\\n", $log_result );
-            $log_result = str_replace('\r', "\\r", $log_result );
+            $log_result = str_replace('\r\n', "", $log_result );
+            $log_result = str_replace('\n', "", $log_result );
+            $log_result = str_replace('\r', "", $log_result );
 
             $log_arr = json_decode( "[".$log_result."]", TRUE);
         }
