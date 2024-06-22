@@ -23,7 +23,7 @@ class SysNotificationController extends _CommonController
         
         $notifs = SysNotification::on();
         if($request->status)
-            $notifs->where('status', $request->status); 
+            $notifs->where('status', $request->status);
         
         if($request->search){
             $search_text = str_replace(' ','%', $request->search?:"");
