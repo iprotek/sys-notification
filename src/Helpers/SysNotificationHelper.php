@@ -106,8 +106,11 @@ class SysNotificationHelper
 
             $log_result = substr($log_result, 0, -1);
 
+            $log_result = preg_replace('/\r\n|\r|\n/', '', $log_result);
+            /*
             $log_result = str_replace(array("\r", "\n", "\r\n", "
 "), array("\\r\\n", "\\r", "\\n", "\\n"), $log_result);
+*/
 
 
             $array = preg_split("/\r\n|\n|\r/", $log_result);
