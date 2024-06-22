@@ -16,13 +16,13 @@ class GitHelper
 
         if($is_composer){
             Log::error("TEST: ".base_path());
-            array_unshift($args, base_path()."\r\n");
-            array_unshift($args, "cd");
+            //array_unshift($args, base_path()."\r\n");
+            //array_unshift($args, "cd");
             //$process = new Process(["cd", base_path()]);
             //$process->run();
             $args[] = " --working-dir=".base_path();
             $base_path = base_path();
-            $process = new Process($args, null, [
+            $process = new Process($args, base_path(), [
                 "HOME"=>$base_path
             ]);
         }
