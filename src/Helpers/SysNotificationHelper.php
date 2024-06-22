@@ -219,6 +219,8 @@ class SysNotificationHelper
         if($has_migrations == true){
             if( GitHelper::runGitCommand("php artisan migrate") === null ){
                 $update_results[] = "Migration successful.";
+            }else{
+                $update_results[] = "Failed: Migration successful.";
             }
         }
 
