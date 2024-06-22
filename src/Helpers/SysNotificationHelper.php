@@ -99,7 +99,7 @@ class SysNotificationHelper
 
         //$log_result - convert this to json and 
         if(strlen($log_result) > 1){
-            $log_result = mb_convert_encoding($log_result, 'UTF-8', 'auto');
+            //$log_result = mb_convert_encoding($log_result, 'UTF-8', 'auto');
             if(substr($log_result,0, 1) == "\""){
                 $log_result = substr($log_result, 1);
             }
@@ -107,10 +107,6 @@ class SysNotificationHelper
             $log_result = substr($log_result, 0, -1);
 
             $log_result = preg_replace('/\r\n|\r|\n/', '\\n', $log_result);
-
-            $array = preg_split("/\r\n|\n|\r/", $log_result);
-            //Log::error("Count:".count($array));
-
 
             $log_arr = json_decode( "[".$log_result."]", TRUE);
         }
@@ -206,7 +202,7 @@ class SysNotificationHelper
                     }
                 }
             }
-            if($notif->description == "MIGRATES"){
+            if($notif->description == "*MIGRATES*"){
                 $has_migrations = true;
             }
         }
