@@ -85,7 +85,7 @@ class SysNotificationHelper
 
 
         //git log ----
-        $log_result = GitHelper::runGitCommand("git log --pretty=format:{\"commit_hash\":\"%h\",\"author_name\":\"%an\",\"author_email\":\"%ae\",\"date\":\"%ad\",\"commit_message\":\"%s\",\"description\":\"%b\"},  HEAD..FETCH_HEAD");
+        $log_result = GitHelper::runGitCommand("git log --pretty=format:\"{\\\"commit_hash\\\":\\\"%h\\\",\\\"author_name\\\":\\\"%an\\\",\\\"author_email\\\":\\\"%ae\\\",\\\"date\\\":\\\"%ad\\\",\\\"commit_message\\\":\\\"%s\\\",\\\"description\\\":\\\"%b\\\"},\" HEAD..FETCH_HEAD");
         if($log_result === null){
             return ["status"=>0,"message"=>"Failed to get logs."];
         }
