@@ -114,7 +114,7 @@ class SysNotificationHelper
 
 
             $array = preg_split("/\r\n|\n|\r/", $log_result);
-            Log::error("Count:".count($array));
+            //Log::error("Count:".count($array));
 
 
             $log_arr = json_decode( "[".$log_result."]", TRUE);
@@ -125,9 +125,9 @@ class SysNotificationHelper
         }
 
         try{
-            Log::error($log_result);
-            Log::error($log_arr);
-            Log::error($git_log);
+            //Log::error($log_result);
+            //Log::error($log_arr);
+            //Log::error($git_log);
 
             if(count($log_arr)<= 0){
                 ["status"=>1,"message"=>"You are updated."];
