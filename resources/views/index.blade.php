@@ -1,7 +1,7 @@
 
 @extends('iprotek_core::layout.pages.view-dashboard')
 @section('logout-link','/logout')
-@section('site-title', 'Notification')
+@section('site-title', 'System Updates')
 @section('head')
     <link rel="stylesheet" href="/css/w3school/searchinput.css">
     <link rel="stylesheet" href="/css/redtable.css">
@@ -36,5 +36,5 @@
   <script>
    // ActivateMenu(['menu-searches']);
   </script>
-  <script src="/js/manage/projects-monitoring/searches.js"> </script>
+  <script src="/iprotek/js/manage/notification-view.js"> </script>
 @endsection
