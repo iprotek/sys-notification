@@ -13,15 +13,15 @@ class GitHelper
 
 
         $args = array_filter(explode(' ', $command));
+        $base_path = base_path(); 
 
         if($is_composer){ 
-            $base_path = base_path(); 
             $process = new Process($args, $base_path , [
                 "HOME"=>$base_path
             ]);
         }
         else
-            $process = new Process($args);
+            $process = new Process($args, $base_path);
     
         // Run the process
         $process->run();
