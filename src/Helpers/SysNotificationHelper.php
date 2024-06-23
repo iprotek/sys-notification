@@ -77,7 +77,7 @@ class SysNotificationHelper
 
 
         //git fetch
-        $fetch_result = GitHelper::runGitCommand("git fetch");
+        $fetch_result = GitHelper::runGitCommand("git fetch", true);
 
         if($fetch_result === null){
             return ["status"=>0,"message"=>"Unable to get update."];
