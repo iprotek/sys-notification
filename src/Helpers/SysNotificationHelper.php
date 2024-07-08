@@ -91,7 +91,7 @@ class SysNotificationHelper
         if($log_result === null){
             return ["status"=>0,"message"=>"Failed to get logs."];
         }
-        Log::error( "Data:". $log_result);
+        //Log::error( "Data:". $log_result);
     
         //save log to notifications---
         $log_arr = [];
@@ -124,6 +124,10 @@ class SysNotificationHelper
                 ["status"=>1,"message"=>"You are updated."];
             }
         }catch(\Exception $ex){
+
+            //Just git pull here...
+
+
             Log::error($ex);
             return;
         }
