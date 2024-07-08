@@ -91,7 +91,7 @@ class SysNotificationHelper
         if($log_result === null){
             return ["status"=>0,"message"=>"Failed to get logs."];
         }
-
+        Log::error( "Data:". $log_result);
     
         //save log to notifications---
         $log_arr = [];
