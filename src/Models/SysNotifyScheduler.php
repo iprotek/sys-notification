@@ -16,4 +16,8 @@ class SysNotifyScheduler extends _CommonModel
         "type",
         "is_active"
     ];
+
+    public $casts = [
+        "is_active"=>"boolean"
+    ];
 }

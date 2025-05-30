@@ -3,10 +3,6 @@
 @section('logout-link','/logout')
 @section('site-title', 'Schedule Notification')
 @section('head')
-    <link rel="stylesheet" href="/css/w3school/searchinput.css">
-    <link rel="stylesheet" href="/css/redtable.css">
-    <link rel="stylesheet" href="/css/Xpose-hover.css">
-    <script src="/js/xpose/Xpose-Events.js"></script>
     <script src="/js/xlsx.full.min.js"></script>
 @endsection
 @section('breadcrumb')
@@ -24,7 +20,7 @@
 
 @section('foot')
   <script>
-    ActivateMenu([' menu-sys-notification-scheduler']);
+    ActivateMenu(['menu-sys-notification-scheduler']);
   </script>
   <script src="/iprotek/js/manage/sys-notification/scheduler.js"> </script>
 @endsection
