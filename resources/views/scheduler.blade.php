@@ -1,7 +1,7 @@
 
 @extends('iprotek_core::layout.pages.view-dashboard')
 @section('logout-link','/logout')
-@section('site-title', 'System Updates')
+@section('site-title', 'Schedule Notification')
 @section('head')
     <link rel="stylesheet" href="/css/w3school/searchinput.css">
     <link rel="stylesheet" href="/css/redtable.css">
@@ -17,14 +17,14 @@
 @endsection
 @section('content') 
   <div id="main-content">
-  <sys-notification group_id="{{$group_id}}"></sys-notification>
+    <sys-notification-scheduler :group_id="{{$group_id}}" :branch_id="{{$selected_branch_id}}"/>
   </div>
   
 @endsection
 
 @section('foot')
   <script>
-    ActivateMenu(['menu-system-updates']);
+    ActivateMenu([' menu-sys-notification-scheduler']);
   </script>
-  <script src="/iprotek/js/manage/notification-view.js"> </script>
+  <script src="/iprotek/js/manage/sys-notification/scheduler.js"> </script>
 @endsection

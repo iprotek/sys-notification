@@ -20,7 +20,7 @@ class CreateSysNotificationsTable extends Migration
             $table->bigInteger('pay_created_by')->nullable(); 
             $table->bigInteger('pay_updated_by')->nullable();
             $table->bigInteger('pay_deleted_by')->nullable();
-
+            
             $table->string('type');//updates or any
             $table->string('name'); //System Updates or any
             $table->string('summary');

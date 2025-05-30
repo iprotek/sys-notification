@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Route;
 use iProtek\SysNotification\Http\Controllers\SysNotificationController;
 use iProtek\SysNotification\Http\Controllers\SysNotifySchedulerController;
 
-//Route::prefix('sms-sender')->name('sms-sender')->group(function(){
-  //  Route::get('/', [SmsController::class, 'index'])->name('.index');
-//});
+include(__DIR__.'/api.php');
 
 Route::middleware(['web'])->group(function(){
  

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSysNotifySchedulersTable extends Migration
+class AddSystemBranchId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateSysNotifySchedulersTable extends Migration
      */
     public function up()
     {
-        Schema::create('sys_notify_schedulers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        //
+        if (!Schema::hasColumn('sys_notifications', 'branch_id')) {
+            Schema::table('sys_notifications', function (Blueprint $table) {
+                $table->bigInteger('branch_id')->nullable();
+            });
+        }
     }
 
     /**
@@ -26,6 +28,6 @@ class CreateSysNotifySchedulersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sys_notify_schedulers');
+        //
     }
 }
