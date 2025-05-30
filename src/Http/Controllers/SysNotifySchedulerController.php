@@ -12,5 +12,10 @@ use iProtek\Core\Http\Controllers\_Common\_CommonController;
 class SysNotifySchedulerController extends _CommonController
 { 
     public $guard = 'admin';
+    
+    public function index(Request $request){
+        //$infos = $this->common_infos();
+        return $this->view("iprotek_sys_notification::scheduler");
+    }
 
 }

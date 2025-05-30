@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route; 
 use iProtek\SysNotification\Http\Controllers\SysNotificationController;
+use iProtek\SysNotification\Http\Controllers\SysNotifySchedulerController;
 
 //Route::prefix('sms-sender')->name('sms-sender')->group(function(){
   //  Route::get('/', [SmsController::class, 'index'])->name('.index');
@@ -19,8 +20,8 @@ Route::middleware(['web'])->group(function(){
     Route::post('/apply-system-updates', [SysNotificationController::class, 'apply_system_updates'])->name('.apply-system-updates');
   
     
-    Route::middleware(['can:manage-notify-scheduler'])->prefix('scheduler')->name('.manage-notify-scheduler')->group(function(){
-      
+    Route::prefix('scheduler')->name('.manage-notify-scheduler')->group(function(){
+      Route::get('/', [SysNotifySchedulerController::class, 'index'])->name('.index');
     });
   
   });

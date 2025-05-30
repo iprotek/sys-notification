@@ -15,8 +15,7 @@ class SysNotificationController extends _CommonController
     public $guard = 'admin';
 
     public function index(Request $request){
-        $infos = $this->common_infos();
-        return view("iprotek_sys_notification::index", $infos);
+        return $this->view("iprotek_sys_notification::index");
     }
 
     public function system_updates(Request $request){
