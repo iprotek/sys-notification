@@ -1,0 +1,16 @@
+<?php
+
+namespace iProtek\SysNotification\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController; 
+use App\Models\UserAdminPayAccount;
+use iProtek\SysNotification\Models\SysNotification;
+use Illuminate\Support\Facades\Artisan;
+use iProtek\Core\Http\Controllers\_Common\_CommonController;
+
+class SysNotifySchedulerController extends _CommonController
+{ 
+    public $guard = 'admin';
+
+}

@@ -17,7 +17,7 @@
 @endsection
 @section('content') 
   <div id="main-content">
-    <sys-notification group_id="{{$group_id}}"></sys-notification>
+  <sys-notification group_id="{{$group_id}}"></sys-notification>
   </div>
   
 @endsection
