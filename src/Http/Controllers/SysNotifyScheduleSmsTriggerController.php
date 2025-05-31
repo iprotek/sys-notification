@@ -12,9 +12,10 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
 { 
     public $guard = 'admin';
     
-    public function index(Request $request){
-        //$infos = $this->common_infos();
-        return $this->view("iprotek_sys_notification::triggers.sms");
+    public function index(Request $request, SysNotifyScheduler $scheduler){
+        
+        return $this->view("iprotek_sys_notification::triggers.sms", ["scheduler_id"=>$scheduler->id], true);
+        
     }
 
     public function list(Request $request){

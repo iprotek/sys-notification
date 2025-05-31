@@ -26,7 +26,7 @@ Route::middleware(['web'])->group(function(){
       //TODO:: 
       Route::prefix('triggers')->group(function(){
 
-        Route::get('sms', [SysNotifyScheduleSmsTriggerController::class, 'index'])->name('.index');
+        Route::get('sms/{scheduler}', [SysNotifyScheduleSmsTriggerController::class, 'index'])->name('.index');
 
         //TODO::Route::prefix('/email', )
         

@@ -13,7 +13,7 @@
 @endsection
 @section('content') 
   <div id="main-content">
-    <sys-notification-trigger-sms :group_id="{{$group_id}}" :branch_id="{{$selected_branch_id}}"/>
+    <sys-notification-trigger-sms :group_id="{{$group_id}}" :branch_id="{{$selected_branch_id}}" :scheduler_id="{{$scheduler_id}}"/>
   </div>
   
 @endsection

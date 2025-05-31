@@ -5,16 +5,13 @@ namespace iProtek\SysNotification\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use iProtek\Core\Models\_CommonModel;
 
-class SysNotification extends Model
+class SysNotification extends _CommonModel
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        "group_id",
-        "pay_created_by",
-        "pay_updated_by",
-        "pay_deleted_by",
          
         "type",
         "name",
@@ -29,5 +26,6 @@ class SysNotification extends Model
         "updated_pay_account_id",
         "other_details",
         "error_message_result"
+        
     ]; 
 }
