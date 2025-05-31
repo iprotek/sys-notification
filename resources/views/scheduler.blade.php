@@ -1,7 +1,7 @@
 
 @extends('iprotek_core::layout.pages.view-dashboard')
 @section('logout-link','/logout')
-@section('site-title', 'Schedule Notification')
+@section('site-title', 'Notification Schedulers')
 @section('head')
     <script src="/js/xlsx.full.min.js"></script>
 @endsection
