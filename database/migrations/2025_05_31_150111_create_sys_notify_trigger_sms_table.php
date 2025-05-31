@@ -13,13 +13,14 @@ class CreateSysNotifyTriggerSmsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sys_notify_trigger_sms', function (Blueprint $table) {
+        Schema::create('sys_notify_schedule_sms_triggers', function (Blueprint $table) {
             
             $table->iprotekDefaultColumns();
 
             //CUSTOMS
             $table->bigInteger('sms_client_api_request_link_id');
             $table->bigInteger('sms_notify_schedule_id');
+            $table->string('name');
             $table->string('notification_type');
             $table->string('to_type');
             $table->longText('selected_items');

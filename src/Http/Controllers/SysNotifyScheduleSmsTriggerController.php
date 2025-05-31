@@ -3,11 +3,12 @@
 namespace iProtek\SysNotification\Http\Controllers;
 
 use Illuminate\Http\Request;
+use iProtek\SysNotification\Models\SysNotifyScheduleSmsTrigger;
 use iProtek\SysNotification\Models\SysNotifyScheduler;
 use iProtek\Core\Http\Controllers\_Common\_CommonController;
 use iProtek\Core\Helpers\PayModelHelper;
 
-class SysNotifyTriggerSmsController extends _CommonController
+class SysNotifyScheduleSmsTriggerController extends _CommonController
 { 
     public $guard = 'admin';
     
@@ -16,11 +17,11 @@ class SysNotifyTriggerSmsController extends _CommonController
         return $this->view("iprotek_sys_notification::triggers.sms");
     }
 
-    /*
     public function list(Request $request){
-        return $this->apiModelSelect(SysNotifyScheduler::class, $request, true, true);
+        return $this->apiModelSelect(SysNotifyScheduleSmsTrigger::class, $request, true, true);
     }
 
+    /*
     public function add(Request $request){
 
         //

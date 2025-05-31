@@ -3,7 +3,7 @@
 
 use Illuminate\Support\Facades\Route;  
 use iProtek\SysNotification\Http\Controllers\SysNotifySchedulerController; 
-use iProtek\SysNotification\Http\Controllers\SysNotifyTriggerSmsController; 
+use iProtek\SysNotification\Http\Controllers\SysNotifyScheduleSmsTriggerController; 
 use iProtek\Xrac\Http\Controllers\XbranchController;
 use Illuminate\Http\Request;
 //use iProtek\Core\Http\Controllers\Manage\CmsController;
@@ -32,7 +32,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
 
             Route::prefix('sms')->name('.sms')->group(function(){
 
-
+                Route::get('list', [SysNotifyScheduleSmsTriggerController::class, 'list'])->name('.list');
 
             });
 

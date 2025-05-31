@@ -7,7 +7,7 @@ use iProtek\SysNotification\Models\SysNotifyScheduler;
 use iProtek\Core\Http\Controllers\_Common\_CommonController;
 use iProtek\Core\Helpers\PayModelHelper;
 
-class SysNotifyTriggerEmailController extends _CommonController
+class SysNotifyScheduleNotificationTriggerController extends _CommonController
 { 
     public $guard = 'admin';
     
