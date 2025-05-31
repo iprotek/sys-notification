@@ -13,7 +13,7 @@ class SysNotifyScheduleEmailTriggerController extends _CommonController
     
     public function index(Request $request){
         //$infos = $this->common_infos();
-        return $this->view("iprotek_sys_notification::triggers.sms");
+        return $this->view("iprotek_sys_notification::triggers.email");
     }
 
     /*
