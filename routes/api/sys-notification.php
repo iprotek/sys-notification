@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;  
 use iProtek\SysNotification\Http\Controllers\SysNotifySchedulerController; 
+use iProtek\SysNotification\Http\Controllers\SysNotifyTriggerSmsController; 
 use iProtek\Xrac\Http\Controllers\XbranchController;
 use Illuminate\Http\Request;
 //use iProtek\Core\Http\Controllers\Manage\CmsController;
@@ -26,6 +27,16 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
 
         
         Route::delete('list/{scheduler_id}', [SysNotifySchedulerController::class, 'remove'])->name('.remove');
+
+        Route::prefix('triggers')->name('.triggers')->group(function(){
+
+            Route::prefix('sms')->name('.sms')->group(function(){
+
+
+
+            });
+
+        });
     
     });
 
