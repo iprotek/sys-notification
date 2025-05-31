@@ -10,6 +10,7 @@ use iProtek\Core\Models\_CommonModel;
 class SysNotifyScheduler extends _CommonModel
 {
     use HasFactory, SoftDeletes;
+    
 
     public $fillable = [
         "name",

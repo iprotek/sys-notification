@@ -14,8 +14,19 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
     //Route::post('/save', [ CmsController::class ,'save_cms'])->name('.save'); 
     //Route::post('/get-content', [ CmsController::class ,'get_cms'])->name('.get'); 
     //Route::get('list', [XbranchController::class, 'branch_list'])->name('.list');
-    Route::prefix('schedules')->name('.schedules')->group(function(){
+    Route::prefix('schedulers')->name('.schedulers')->group(function(){
+        
         Route::get('list', [SysNotifySchedulerController::class, 'list'])->name('.list');
+
+        Route::get('list/{scheduler_id}', [SysNotifySchedulerController::class, 'get'])->name('.get');
+
+        Route::post('add', [SysNotifySchedulerController::class, 'add'])->name('.add');
+        
+        Route::put('update', [SysNotifySchedulerController::class, 'update'])->name('.update');
+
+        
+        Route::delete('list/{scheduler_id}', [SysNotifySchedulerController::class, 'remove'])->name('.remove');
+    
     });
 
 });
