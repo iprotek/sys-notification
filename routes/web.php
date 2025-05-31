@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route; 
 use iProtek\SysNotification\Http\Controllers\SysNotificationController;
 use iProtek\SysNotification\Http\Controllers\SysNotifySchedulerController;
+use iProtek\SysNotification\Http\Controllers\SysNotifyTriggerSmsController;
 
 include(__DIR__.'/api.php');
 
@@ -19,7 +20,20 @@ Route::middleware(['web'])->group(function(){
   
     
     Route::prefix('scheduler')->name('.manage-notify-scheduler')->group(function(){
+
       Route::get('/', [SysNotifySchedulerController::class, 'index'])->name('.index');
+    
+      //TODO:: 
+      Route::prefix('triggers')->group(function(){
+
+        Route::get('sms', [SysNotifyTriggerSmsController::class, 'index'])->name('.index');
+
+        //TODO::Route::prefix('/email', )
+        
+        //TODO::Route::prefix('/notification', )
+        
+      });
+    
     });
   
   });

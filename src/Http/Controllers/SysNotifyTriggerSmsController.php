@@ -7,15 +7,16 @@ use iProtek\SysNotification\Models\SysNotifyScheduler;
 use iProtek\Core\Http\Controllers\_Common\_CommonController;
 use iProtek\Core\Helpers\PayModelHelper;
 
-class SysNotifySchedulerController extends _CommonController
+class SysNotifyTriggerSmsController extends _CommonController
 { 
     public $guard = 'admin';
     
     public function index(Request $request){
         //$infos = $this->common_infos();
-        return $this->view("iprotek_sys_notification::scheduler");
+        return $this->view("iprotek_sys_notification::triggers.sms");
     }
 
+    /*
     public function list(Request $request){
         return $this->apiModelSelect(SysNotifyScheduler::class, $request, true, true);
     }
@@ -96,6 +97,6 @@ class SysNotifySchedulerController extends _CommonController
 
         return ["status"=>1, "message"=>"Unable to remove."];
     }
-    
+    */
 
 }
