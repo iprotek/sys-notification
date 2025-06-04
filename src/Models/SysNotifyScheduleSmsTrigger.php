@@ -22,6 +22,8 @@ class SysNotifyScheduleSmsTrigger extends _CommonModel
         "total_paid",
         "is_active",
         "repeat_days_after",
+        "repeat_type",
+        "repeat_info",
         "is_stop_when_fully_paid",
         "error_message",
         "other_settings"

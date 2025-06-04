@@ -15,6 +15,23 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
     //Route::post('/save', [ CmsController::class ,'save_cms'])->name('.save'); 
     //Route::post('/get-content', [ CmsController::class ,'get_cms'])->name('.get'); 
     //Route::get('list', [XbranchController::class, 'branch_list'])->name('.list');
+    
+    Route::get('to-type-list', function(Request $request){
+        $to_type = config('iprotek_sys_notification.to_type_list');
+
+        $items = array_filter( explode(',', $to_type), function($item){
+            return trim($item);
+        });
+        $list = [];
+        foreach($items as $item){
+            $list[] = trim($item);
+        }
+        return $list;
+
+    })->name('.type-list');
+    
+
+
     Route::prefix('schedulers')->name('.schedulers')->group(function(){
         
         Route::get('list', [SysNotifySchedulerController::class, 'list'])->name('.list');

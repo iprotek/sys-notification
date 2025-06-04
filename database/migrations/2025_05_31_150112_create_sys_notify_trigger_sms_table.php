@@ -29,6 +29,8 @@ class CreateSysNotifyTriggerSmsTable extends Migration
             $table->decimal('total_paid', 15, 3)->default(0);
             $table->boolean('is_active')->default(1);
             $table->integer('repeat_days_after')->default(0);
+            $table->string('repeat_type');
+            $table->text('repeat_info');
             $table->boolean('is_stop_when_fully_paid')->default(1);
             $table->text('error_message')->nullable();
             $table->longText('other_settings')->nullable();
