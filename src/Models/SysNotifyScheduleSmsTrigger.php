@@ -14,6 +14,7 @@ class SysNotifyScheduleSmsTrigger extends _CommonModel
         "sms_client_api_request_link_id",
         "sys_notify_schedule_id",
         "name",
+        "send_message",
         "notification_type",
         "to_type",
         "selected_items",
