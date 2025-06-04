@@ -33,6 +33,7 @@ class CreateSysNotifyTriggerSmsTable extends Migration
             $table->string('repeat_type');
             $table->text('repeat_info');
             $table->boolean('is_stop_when_fully_paid')->default(1);
+            $table->string('status')->default('ongoing'); //ongoing, completed, failed
             $table->text('error_message')->nullable();
             $table->longText('other_settings')->nullable();
 
