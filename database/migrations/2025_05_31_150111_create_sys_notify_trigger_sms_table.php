@@ -19,7 +19,7 @@ class CreateSysNotifyTriggerSmsTable extends Migration
 
             //CUSTOMS
             $table->bigInteger('sms_client_api_request_link_id');
-            $table->bigInteger('sms_notify_schedule_id');
+            $table->bigInteger('sys_notify_schedule_id');
             $table->string('name');
             $table->string('notification_type');
             $table->string('to_type');
@@ -28,8 +28,10 @@ class CreateSysNotifyTriggerSmsTable extends Migration
             $table->decimal('total_due', 15, 3)->default(0);
             $table->decimal('total_paid', 15, 3)->default(0);
             $table->boolean('is_active')->default(1);
+            $table->integer('repeat_days_after')->default(0);
             $table->boolean('is_stop_when_fully_paid')->default(1);
             $table->text('error_message')->nullable();
+            $table->longText('other_settings')->nullable();
 
         });
     }

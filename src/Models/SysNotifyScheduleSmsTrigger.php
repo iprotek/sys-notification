@@ -12,7 +12,7 @@ class SysNotifyScheduleSmsTrigger extends _CommonModel
 
     public $fillable = [
         "sms_client_api_request_link_id",
-        "sms_notify_schedule_id",
+        "sys_notify_schedule_id",
         "name",
         "notification_type",
         "to_type",
@@ -21,7 +21,9 @@ class SysNotifyScheduleSmsTrigger extends _CommonModel
         "total_due",
         "total_paid",
         "is_active",
+        "repeat_days_after",
         "is_stop_when_fully_paid",
-        "error_message"
+        "error_message",
+        "other_settings"
     ];
 }
