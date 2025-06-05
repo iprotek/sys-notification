@@ -6,6 +6,7 @@ use iProtek\SysNotification\Http\Controllers\SysNotifySchedulerController;
 use iProtek\SysNotification\Http\Controllers\SysNotifyScheduleSmsTriggerController; 
 use iProtek\Xrac\Http\Controllers\XbranchController;
 use Illuminate\Http\Request;
+use iProtek\SysNotification\Helpers\SysNotificationHelper;
 //use iProtek\Core\Http\Controllers\Manage\CmsController;
 //use App\Http\Controllers\Manage\BillingSharedAccountDefaultBranchController;
 
@@ -17,17 +18,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
     //Route::get('list', [XbranchController::class, 'branch_list'])->name('.list');
     
     Route::get('to-type-list', function(Request $request){
-        $to_type = config('iprotek_sys_notification.to_type_list');
-
-        $items = array_filter( explode(',', $to_type), function($item){
-            return trim($item);
-        });
-        $list = [];
-        foreach($items as $item){
-            $list[] = trim($item);
-        }
-        return $list;
-
+        return SysNotificationHelper::toTypeList();
     })->name('.type-list');
     
 
@@ -50,6 +41,8 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
             Route::prefix('sms')->name('.sms')->group(function(){
 
                 Route::get('list', [SysNotifyScheduleSmsTriggerController::class, 'list'])->name('.list');
+
+                Route::post('add', [SysNotifyScheduleSmsTriggerController::class, 'add'])->name('.add');
 
             });
 

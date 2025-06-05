@@ -247,4 +247,19 @@ class SysNotificationHelper
         }
         return ["status"=>1, "message"=>"Successfully Updated.", "updates"=>$update_results ];
     }
+
+    public static function toTypeList(){
+        
+        $to_type = config('iprotek_sys_notification.to_type_list');
+
+        $items = array_filter( explode(',', $to_type), function($item){
+            return trim($item);
+        });
+        $list = [];
+        foreach($items as $item){
+            $list[] = trim($item);
+        }
+        return $list;
+    }
+
 }
