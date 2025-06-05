@@ -120,14 +120,12 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
             return ["status"=>0, "message"=>"Sms api request link not found."];
         }
 
-        return["status"=>0,"message"=>"Completed"];
-
         //CHECK SELECTED ITEMS
 
         //CHECK MOBILE NOS
 
 
-
+        
         //CHECK IF EXISTS
         $exists = PayModelHelper::get(SysNotifyScheduleSmsTrigger::class, $request)->where('name', $dataRequest['name'])->where('branch_id', $dataRequest['branch_id'] )->first();
         if($exists){
