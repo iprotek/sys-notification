@@ -41,6 +41,7 @@ class iProtekNotificationServiceProvider extends ServiceProvider
             //Log::info('iProtekNotificationServiceProvider booted');
             $this->commands([
                 \iProtek\SysNotification\Console\Commands\IprotekSysNotificationTest::class,
+                \iProtek\SysNotification\Console\Commands\SmsScheduleCommand::class
             ]);
         }
  
@@ -53,5 +54,28 @@ class iProtekNotificationServiceProvider extends ServiceProvider
             __DIR__ . '/../config/iprotek.php', 'iprotek_sys_notification'
         );
  
+    }
+
+    
+    public function booted($callback){
+        
+        $this->app->booted(function () {
+            //$schedule = $this->app->make(Schedule::class);
+             $schedule = app(Schedule::class);
+            // Schedule your command
+            //$schedule->command('mypackage:run-task')->dailyAt('13:00');
+
+            // Or inline task
+            // $schedule->call(function () {
+            //     Log::info('Running scheduled task from package...');
+            // })->everyFiveMinutes(); 
+            
+            $schedule->command('iprotek:sys-notification-sms-schedule')
+            ->everyMinute()
+            ->onOneServer()
+            ->runInBackground()
+            ->withoutOverlapping();
+
+        });
     }
 }
