@@ -21,7 +21,12 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
     }
 
     public function list(Request $request){
-        return $this->apiModelSelect(SysNotifyScheduleSmsTrigger::class, $request, true, true);
+        
+        $data = $this->apiModelSelect(SysNotifyScheduleSmsTrigger::class, $request, true, false);
+
+        return $data["model"]->paginate(10);
+        return $data["model"];
+    
     }
 
     
