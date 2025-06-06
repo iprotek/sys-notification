@@ -37,6 +37,6 @@ class SmsScheduleCommand extends Command
      */
     public function handle()
     {
-        echo "test";
+        //echo "test";
     }
 }
