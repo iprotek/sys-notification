@@ -23,7 +23,7 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
     public function list(Request $request){
         
         $data = $this->apiModelSelect(SysNotifyScheduleSmsTrigger::class, $request, true, false);
-
+        $data["model"]->select('*', \DB::raw("fnGetDateTimeFromScheduleTrigger(id) as datetime_schedule") );
         return $data["model"]->paginate(10);
         return $data["model"];
     

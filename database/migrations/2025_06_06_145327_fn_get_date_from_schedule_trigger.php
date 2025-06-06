@@ -14,9 +14,9 @@ class FnGetDateFromScheduleTrigger extends Migration
     public function up()
     {
         DB::statement("SET @@sql_mode='';");
-        DB::unprepared("DROP FUNCTION IF EXISTS fnGetDateFromScheduleTrigger");
+        DB::unprepared("DROP FUNCTION IF EXISTS fnGetDateTimeFromScheduleTrigger");
         DB::unprepared("
-        CREATE FUNCTION `fnGetDateFromScheduleTrigger`(schedule_trigger_id BIGINT) RETURNS datetime
+        CREATE FUNCTION `fnGetDateTimeFromScheduleTrigger`(schedule_trigger_id BIGINT) RETURNS datetime
         BEGIN
             DECLARE _IsActive TINYINT(1);
             DECLARE _RepeatType VARCHAR(100);
