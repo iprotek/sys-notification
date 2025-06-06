@@ -32,9 +32,9 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
         Route::post('add', [SysNotifySchedulerController::class, 'add'])->name('.add');
         
         Route::put('update', [SysNotifySchedulerController::class, 'update'])->name('.update');
-
         
         Route::delete('list/{scheduler_id}', [SysNotifySchedulerController::class, 'remove'])->name('.remove');
+
 
         Route::prefix('triggers')->name('.triggers')->group(function(){
 
@@ -43,6 +43,10 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
                 Route::get('list', [SysNotifyScheduleSmsTriggerController::class, 'list'])->name('.list');
 
                 Route::post('add', [SysNotifyScheduleSmsTriggerController::class, 'add'])->name('.add');
+                
+                Route::put('update', [SysNotifyScheduleSmsTriggerController::class, 'update'])->name('.update');
+
+                Route::get('get/{schedule_trigger_id}', [SysNotifyScheduleSmsTriggerController::class, 'get'])->name('.get');
 
             });
 
