@@ -49,17 +49,17 @@ class FnGetDateFromScheduleTrigger extends Migration
             RETURN NULL;
           END IF;    
             
-            #SET REPEAT INFO FROM JSON
-            SET _MonthName = fnJSON_VALUE(_RepeatInfo, '$.month_name');
-            SET _MonthDay = fnJSON_VALUE(_RepeatInfo, '$.month_day');
-            SET _WeekDay = fnJSON_VALUE(_RepeatInfo, '$.week_day');
+          #SET REPEAT INFO FROM JSON
+          SET _MonthName = fnJSON_VALUE(_RepeatInfo, '$.month_name');
+          SET _MonthDay = fnJSON_VALUE(_RepeatInfo, '$.month_day');
+          SET _WeekDay = fnJSON_VALUE(_RepeatInfo, '$.week_day');
           SET _DateTime = IFNULL(fnJSON_VALUE(_RepeatInfo, '$.datetime'), NOW());
-            SET _Time = fnJSON_VALUE(_RepeatInfo, '$.time');
-            SET _MonthNo = MONTH(STR_TO_DATE(_MonthName, '%b'));
-            
-            IF(_RepeatType = 'datetime')THEN
-            
-            RETURN _DateTime;
+          SET _Time = fnJSON_VALUE(_RepeatInfo, '$.time');
+          SET _MonthNo = MONTH(STR_TO_DATE(_MonthName, '%b'));
+          
+          IF(_RepeatType = 'datetime')THEN
+          
+          RETURN _DateTime;
                 
           ELSEIF(_RepeatType = 'yearly')THEN
             
@@ -75,11 +75,11 @@ class FnGetDateFromScheduleTrigger extends Migration
                 
           ELSEIF(_RepeatType = 'weekly')THEN
             
-                SET _CurWeekDay = DATE_FORMAT(NOW(), '%a');
+              SET _CurWeekDay = DATE_FORMAT(NOW(), '%a');
                 
               SET _WeekDifference = (FIELD(_CurWeekDay, 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') -  FIELD(_WeekDay, 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') + 7) % 7;
                 
-                RETURN CONCAT( DATE( DATE_ADD( NOW(), INTERVAL _WeekDifference * -1 DAY)) ,' ', _Time);
+              RETURN CONCAT( DATE( DATE_ADD( NOW(), INTERVAL _WeekDifference * -1 DAY)) ,' ', _Time);
                 
             END IF;
 
