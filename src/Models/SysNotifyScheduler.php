@@ -21,4 +21,19 @@ class SysNotifyScheduler extends _CommonModel
     public $casts = [
         "is_active"=>"boolean"
     ];
+
+    public $appends = [
+        "sms_schedule_active_count",
+        "sms_schedule_inactive_count"
+    ];
+
+    public function getSmsScheduleActiveCountAttribute(){
+        return SysNotifyScheduleSmsTrigger::where(["is_active"=>1, "sys_notify_schedule_id"=>$this->id])->count();
+    }
+
+    public function getSmsScheduleInactiveCountAttribute(){
+        return SysNotifyScheduleSmsTrigger::where(["sys_notify_schedule_id"=>$this->id])->where('is_active','!=',1)->count();
+    }
+
+    
 }

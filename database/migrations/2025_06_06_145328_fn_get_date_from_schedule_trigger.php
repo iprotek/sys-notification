@@ -41,11 +41,11 @@ class FnGetDateFromScheduleTrigger extends Migration
           WHERE id = schedule_trigger_id;
 
           #CHECK IF ACTIVE
-          IF( _IsActive != 1) THEN
-            RETURN NULL;
-          END IF;
-            #CHECK REPEAT INFO SETTINGS
-            IF( _RepeatInfo = '' OR _RepeatInfo IS NULL) THEN
+          #IF( _IsActive != 1) THEN
+          #  RETURN NULL;
+          #END IF;
+          #CHECK REPEAT INFO SETTINGS
+          IF( _RepeatInfo = '' OR _RepeatInfo IS NULL) THEN
             RETURN NULL;
           END IF;    
             
