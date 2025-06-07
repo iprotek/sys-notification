@@ -51,7 +51,7 @@ class SmsScheduleCommand extends Command
             
             echo "TEST MODE:";
 
-            $gg = SysNotifyScheduleSmsTrigger::where('is_active', 1)
+            $gg = SysNotifyScheduleSmsTrigger::where(['is_active'=> 1, "status"=>"test" ])
             ->with(['sms_client_api_request_link'])
             ->whereHas('sys_notify_scheduler', function($q){
                 $q->where('is_active', 1);
@@ -63,13 +63,26 @@ class SmsScheduleCommand extends Command
 
             if($gg){
                 ScheduleSmsHelper::schedule_trigger_send($gg);
+            }else{
+                echo "Nothing to be tested. Please set status: `test`";
             }
 
         }
         else{
-            echo "PRODUCTION NOT IMPLEMENTED..";
+            echo "PROD MODE:..";
 
-
+            $gg = SysNotifyScheduleSmsTrigger::where(['is_active'=> 1, "status"=>"ongoing" ])
+            ->with(['sms_client_api_request_link'])
+            ->whereHas('sys_notify_scheduler', function($q){
+                $q->where('is_active', 1);
+            })
+            ->whereHas('sms_client_api_request_link', function($q){
+                $q->where('is_active', 1);
+            })
+            ->first();
+            if($gg){
+                ScheduleSmsHelper::schedule_trigger_send($gg);
+            }
         }
 
 
