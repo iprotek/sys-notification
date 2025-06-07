@@ -19,7 +19,7 @@ class CreateSysNotifyTriggerSmsTable extends Migration
 
             //CUSTOMS
             $table->bigInteger('sms_client_api_request_link_id');
-            $table->bigInteger('sys_notify_schedule_id');
+            $table->bigInteger('sys_notify_scheduler_id');
             $table->string('name');
             $table->longText('send_message');
             $table->string('notification_type');

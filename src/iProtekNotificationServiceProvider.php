@@ -4,6 +4,7 @@ namespace iProtek\SysNotification;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
+use iProtek\SysNotification\Models\SysNotifyScheduleSmsTrigger;
 
 class iProtekNotificationServiceProvider extends ServiceProvider
 {

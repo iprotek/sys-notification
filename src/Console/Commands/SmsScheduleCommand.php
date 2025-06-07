@@ -3,6 +3,9 @@
 namespace iProtek\SysNotification\Console\Commands;
 
 use Illuminate\Console\Command;
+use iProtek\SysNotification\Models\SysNotifyScheduleSmsTrigger;
+use Illuminate\Support\Facades\Log;
+use iProtek\SysNotification\Helpers\ScheduleSmsHelper;
 
 class SmsScheduleCommand extends Command
 {
@@ -11,7 +14,7 @@ class SmsScheduleCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'iprotek:sys-notification-sms-schedule';
+    protected $signature = 'iprotek:sys-notification-sms-schedule {--test=0}';
 
     /**
      * The console command description.
@@ -36,7 +39,39 @@ class SmsScheduleCommand extends Command
      * @return int
      */
     public function handle()
-    {
-        //echo "test";
+    { 
+        $is_test = false;
+        $test_value = "";
+        if(   $this->option('test') != "0"){
+            $is_test = true;
+            $test_value = $this->option('test');
+        }
+
+        if($is_test){            
+            
+            echo "TEST MODE:";
+
+            $gg = SysNotifyScheduleSmsTrigger::where('is_active', 1)
+            ->with(['sms_client_api_request_link'])
+            ->whereHas('sys_notify_scheduler', function($q){
+                $q->where('is_active', 1);
+            })
+            ->whereHas('sms_client_api_request_link', function($q){
+                $q->where('is_active', 1);
+            })
+            ->first();
+
+            if($gg){
+                ScheduleSmsHelper::schedule_trigger_send($gg);
+            }
+
+        }
+        else{
+            echo "PRODUCTION NOT IMPLEMENTED..";
+
+
+        }
+
+
     }
 }

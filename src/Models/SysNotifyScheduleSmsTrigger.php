@@ -13,7 +13,7 @@ class SysNotifyScheduleSmsTrigger extends _CommonModel
 
     public $fillable = [
         "sms_client_api_request_link_id",
-        "sys_notify_schedule_id",
+        "sys_notify_scheduler_id",
         "name",
         "send_message",
         "notification_type",
@@ -43,5 +43,9 @@ class SysNotifyScheduleSmsTrigger extends _CommonModel
 
     public function sms_client_api_request_link(){
         return $this->belongsTo(SmsClientApiRequestLink::class, 'sms_client_api_request_link_id');
+    }
+
+    public function sys_notify_scheduler(){
+        return $this->belongsTo(SysNotifyScheduler::class, 'sys_notify_scheduler_id');
     }
 }

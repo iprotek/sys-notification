@@ -24,7 +24,7 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
         
         $data = $this->apiModelSelect(SysNotifyScheduleSmsTrigger::class, $request, true, false);
 
-        $data["model"]->where('sys_notify_schedule_id', $request->scheduler_id);
+        $data["model"]->where('sys_notify_scheduler_id', $request->scheduler_id);
 
         $data["model"]->select('*', \DB::raw("fnGetDateTimeFromScheduleTrigger(id) as datetime_schedule") );
         return $data["model"]->paginate(10);
@@ -109,7 +109,7 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
             "name"=>"required",
             "branch_id"=>"required",
             "sms_client_api_request_link_id"=>"required|integer",
-            "sys_notify_schedule_id"=>"required",
+            "sys_notify_scheduler_id"=>"required",
             "send_message"=>"required",
             "notification_type"=>"required",
             "to_type"=>"required|in:".implode(",",$toTypes),
@@ -239,7 +239,7 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
             "name"=>"required",
             "branch_id"=>"required",
             "sms_client_api_request_link_id"=>"required|integer",
-            "sys_notify_schedule_id"=>"required",
+            "sys_notify_scheduler_id"=>"required",
             "send_message"=>"required",
             "notification_type"=>"required",
             "to_type"=>"required|in:".implode(",",$toTypes),

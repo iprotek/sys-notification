@@ -28,11 +28,11 @@ class SysNotifyScheduler extends _CommonModel
     ];
 
     public function getSmsScheduleActiveCountAttribute(){
-        return SysNotifyScheduleSmsTrigger::where(["is_active"=>1, "sys_notify_schedule_id"=>$this->id])->count();
+        return SysNotifyScheduleSmsTrigger::where(["is_active"=>1, "sys_notify_scheduler_id"=>$this->id])->count();
     }
 
     public function getSmsScheduleInactiveCountAttribute(){
-        return SysNotifyScheduleSmsTrigger::where(["sys_notify_schedule_id"=>$this->id])->where('is_active','!=',1)->count();
+        return SysNotifyScheduleSmsTrigger::where(["sys_notify_scheduler_id"=>$this->id])->where('is_active','!=',1)->count();
     }
 
     
