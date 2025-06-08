@@ -60,6 +60,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
                         //LIST
                         Route::get('list',[SysNotifyPaidScheduleTriggerController::class, 'paid_list'])->name('.list');
                         //ADD
+                        Route::post('add-pay',[SysNotifyPaidScheduleTriggerController::class, 'add_pay'])->name('.add-pay');
                         //ADD NOTE
 
 

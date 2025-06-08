@@ -22,7 +22,7 @@ class CreateSysNotifyPaidScheduleTriggersTable extends Migration
             $table->decimal('paid_amount',10,3);
             $table->decimal('balance_amount',10,3);
             $table->string("type");
-            $table->text('message_template');
+            $table->text('message_template')->nullable();
             $table->text('note')->nullable();
             $table->boolean('is_notify_sms');
             
