@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use iProtek\SysNotification\Models\SysNotifyScheduleSmsTrigger;
 use Illuminate\Support\Facades\Log;
 use iProtek\SysNotification\Helpers\ScheduleSmsHelper;
+use iProtek\SysNotification\Models\SysNotifyScheduleTriggerFlag;
 
 class SmsScheduleCommand extends Command
 {
@@ -83,10 +84,18 @@ class SmsScheduleCommand extends Command
             ->whereHas('sms_client_api_request_link', function($q){
                 $q->where('is_active', 1);
             })
+            ->whereRaw(" id NOT IN( select sys_notify_schedule_sms_triggers_id FROM sys_notify_schedule_trigger_flags WHERE date = DATE(NOW()) AND `type` = 'sms' )")
             ->first();
             if($gg){
                 
                 //TODO:: ADD TRIGGERED FLAG RECORD THIS DAY TO AVOID REPEAT
+                SysNotifyScheduleTriggerFlag::create([
+                    "group_id"=>$gg->group_id,
+                    "branch_id"=>$gg->branch_id,
+                    "sys_notify_schedule_sms_triggers_id"=>$gg->id,
+                    "type"=>"sms",
+                    "date"=>\Carbon\Carbon::now()->format('Y-m-d')
+                ]);
 
                 ScheduleSmsHelper::schedule_trigger_send($gg);
 

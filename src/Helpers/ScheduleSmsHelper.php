@@ -62,6 +62,10 @@ class ScheduleSmsHelper
 
     }
 
+    public static function pay_schedule_trigger_send(SysNotifyScheduleSmsTrigger $schedule_trigger, $message){
+        
+    }
+
 
 
 
