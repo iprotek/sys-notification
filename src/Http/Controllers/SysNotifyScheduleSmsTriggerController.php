@@ -9,6 +9,7 @@ use iProtek\Core\Http\Controllers\_Common\_CommonController;
 use iProtek\Core\Helpers\PayModelHelper;
 use iProtek\SysNotification\Helpers\SysNotificationHelper;
 use iProtek\SmsSender\Models\SmsClientApiRequestLink;
+use iProtek\SmsSender\Models\SmsClientMessage;
 
 class SysNotifyScheduleSmsTriggerController extends _CommonController
 { 
@@ -30,6 +31,18 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
         return $data["model"]->paginate(10);
         return $data["model"];
     
+    }
+
+    public function trigger_list(Request $request){
+
+        $schedule_sms_trigger_id = $request->schedule_sms_trigger_id;
+
+
+        $data = $this->apiModelSelect(SmsClientMessage::class, $request, true, false, " CONCAT(to_number, message) LIKE ? ", "id DESC");
+
+        $data["model"]->where('target_id', $request->type.'-schedule-notification-'. $schedule_sms_trigger_id);
+
+        return $data["model"]->paginate(10);
     }
 
     

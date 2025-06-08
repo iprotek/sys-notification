@@ -42,6 +42,8 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
 
                 Route::get('list', [SysNotifyScheduleSmsTriggerController::class, 'list'])->name('.list');
 
+                Route::get('trigger-list/{schedule_sms_trigger_id}', [SysNotifyScheduleSmsTriggerController::class, 'trigger_list'])->name('.trigger-list');
+
                 Route::post('add', [SysNotifyScheduleSmsTriggerController::class, 'add'])->name('.add');
                 
                 Route::put('update', [SysNotifyScheduleSmsTriggerController::class, 'update'])->name('.update');

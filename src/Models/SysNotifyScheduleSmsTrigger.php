@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use iProtek\Core\Models\_CommonModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use iProtek\SmsSender\Models\SmsClientApiRequestLink;
+use iProtek\SmsSender\Models\SmsClientMessage;
 
 class SysNotifyScheduleSmsTrigger extends _CommonModel
 {
@@ -41,6 +42,14 @@ class SysNotifyScheduleSmsTrigger extends _CommonModel
         "is_stop_when_fully_paid"=>"boolean"
     ];
 
+    public $appends = [
+        "sms_trigger_count"
+    ];
+
+    public function getSmsTriggerCountAttribute(){
+        return SmsClientMessage::where('target_id','sms-schedule-notification-'.$this->id)->count();
+    }
+
     public function sms_client_api_request_link(){
         return $this->belongsTo(SmsClientApiRequestLink::class, 'sms_client_api_request_link_id');
     }
@@ -48,4 +57,6 @@ class SysNotifyScheduleSmsTrigger extends _CommonModel
     public function sys_notify_scheduler(){
         return $this->belongsTo(SysNotifyScheduler::class, 'sys_notify_scheduler_id');
     }
+
+
 }

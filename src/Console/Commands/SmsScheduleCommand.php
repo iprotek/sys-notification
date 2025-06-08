@@ -40,6 +40,10 @@ class SmsScheduleCommand extends Command
      */
     public function handle()
     { 
+        $repeat_count = config('iprotek_sys_notification.interval_sms_send_count') ?? 1;
+        if(!is_numeric($repeat_count)){
+            $repeat_count = 1;
+        }
         $is_test = false;
         $test_value = "";
         if(   $this->option('test') != "0"){
@@ -69,8 +73,8 @@ class SmsScheduleCommand extends Command
 
         }
         else{
-            echo "PROD MODE:..";
-
+            echo "PROD MODE($repeat_count):..";
+            //REPEAT THIS x50
             $gg = SysNotifyScheduleSmsTrigger::where(['is_active'=> 1, "status"=>"ongoing" ])
             ->with(['sms_client_api_request_link'])
             ->whereHas('sys_notify_scheduler', function($q){
@@ -81,7 +85,14 @@ class SmsScheduleCommand extends Command
             })
             ->first();
             if($gg){
+                
+                //TODO:: ADD TRIGGERED FLAG RECORD THIS DAY TO AVOID REPEAT
+
                 ScheduleSmsHelper::schedule_trigger_send($gg);
+
+            }else{
+                echo "NOTHING TRIGGERED";
+                //BREAK IF LOOP
             }
         }
 
