@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace iProtek\SysNotification\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +17,7 @@ class SysNotifyPaidScheduleTrigger extends _CommonModel
         "balance_amount",
         "type",
         "message_template",
-        "is_notify_sms"
+        "is_notify_sms",
+        "note"
     ];
 }

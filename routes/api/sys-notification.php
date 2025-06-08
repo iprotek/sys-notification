@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;  
 use iProtek\SysNotification\Http\Controllers\SysNotifySchedulerController; 
 use iProtek\SysNotification\Http\Controllers\SysNotifyScheduleSmsTriggerController; 
+use iProtek\SysNotification\Http\Controllers\SysNotifyPaidScheduleTriggerController;
 use iProtek\Xrac\Http\Controllers\XbranchController;
 use Illuminate\Http\Request;
 use iProtek\SysNotification\Helpers\SysNotificationHelper;
@@ -42,13 +43,31 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
 
                 Route::get('list', [SysNotifyScheduleSmsTriggerController::class, 'list'])->name('.list');
 
-                Route::get('trigger-list/{schedule_sms_trigger_id}', [SysNotifyScheduleSmsTriggerController::class, 'trigger_list'])->name('.trigger-list');
+                //Route::get('trigger-list/{schedule_sms_trigger_id}', [SysNotifyScheduleSmsTriggerController::class, 'trigger_list'])->name('.trigger-list');
 
                 Route::post('add', [SysNotifyScheduleSmsTriggerController::class, 'add'])->name('.add');
                 
                 Route::put('update', [SysNotifyScheduleSmsTriggerController::class, 'update'])->name('.update');
 
-                Route::get('get/{schedule_trigger_id}', [SysNotifyScheduleSmsTriggerController::class, 'get'])->name('.get');
+                Route::prefix('get/{schedule_trigger_id}')->name('.get')->group(function(){
+
+                    Route::get('/', [SysNotifyScheduleSmsTriggerController::class, 'get'])->name('.get');
+                    
+                    Route::get('trigger-list', [SysNotifyScheduleSmsTriggerController::class, 'trigger_list'])->name('.trigger-list');
+
+                    Route::prefix('paid')->name('.paid')->group(function(){
+                        
+                        //LIST
+                        Route::get('list',[SysNotifyPaidScheduleTriggerController::class, 'paid_list'])->name('.list');
+                        //ADD
+                        //ADD NOTE
+
+
+                    });
+
+                });
+                //Route::get('get/{schedule_trigger_id}', [SysNotifyScheduleSmsTriggerController::class, 'get'])->name('.get');
+
 
             });
 
