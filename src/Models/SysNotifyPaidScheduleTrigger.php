@@ -20,4 +20,12 @@ class SysNotifyPaidScheduleTrigger extends _CommonModel
         "is_notify_sms",
         "note"
     ];
+
+    protected $casts = [
+        "is_notify_sms"=>"boolean",
+        "created_at"=>"datetime:Y-m-d H:i A",
+        "updated_at"=>"datetime:Y-m-d H:i A",
+    ];
+
+
 }
