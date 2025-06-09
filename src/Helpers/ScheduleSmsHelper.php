@@ -11,7 +11,7 @@ use iProtek\SysNotification\Models\SysNotifyPaidScheduleTrigger;
 class ScheduleSmsHelper
 { 
 
-    public static function compose_message($name_info, SysNotifyScheduleSmsTrigger $schedule_trigger){
+    public static function compose_message($name_info, SysNotifyScheduleSmsTrigger $schedule_trigger, $message = null){
         //[person_name]
         //[total_due]
         //[total_paid]
@@ -21,7 +21,9 @@ class ScheduleSmsHelper
         $total_paid = $schedule_trigger->total_paid ?? 0;
         $total_balance = $total_due - $total_paid;
 
-        $message =  $schedule_trigger->send_message;
+        if($message == null)
+            $message =  $schedule_trigger->send_message;
+
         $message = str_replace('[person_name]', $person_name, $message);
         $message = str_replace('[total_due]', number_format($total_due, 2, '.', ','), $message);
         $message = str_replace('[total_paid]', number_format($total_paid, 2, '.', ','), $message);
@@ -33,7 +35,8 @@ class ScheduleSmsHelper
     }
 
     public static function compose_payment_message( $name_info, SysNotifyPaidScheduleTrigger $payment, SysNotifyScheduleSmsTrigger $schedule_trigger){
-        $message = static::compose_message( $name_info, $schedule_trigger);
+
+        $message = static::compose_message( $name_info, $schedule_trigger, $payment->message_template);
 
         $message = str_replace('[paid_amount]', number_format($payment->paid_amount, 2, '.', ','), $message);
         $message = str_replace('[paid_ref_no]', $payment->id, $message);
