@@ -62,6 +62,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
                         //ADD
                         Route::post('add-pay',[SysNotifyPaidScheduleTriggerController::class, 'add_pay'])->name('.add-pay');
                         //ADD NOTE
+                        Route::post('resend-sms-payment', [SysNotifyPaidScheduleTriggerController::class, 'resend_sms_payment'])->name('.resend-sms-payment');
 
 
                     });

@@ -7,6 +7,7 @@ use iProtek\Core\Http\Controllers\_Common\_CommonController;
 use iProtek\SysNotification\Models\SysNotifyPaidScheduleTrigger;
 use iProtek\SysNotification\Models\SysNotifyScheduleSmsTrigger;
 use iProtek\Core\Helpers\PayModelHelper;
+use iProtek\SysNotification\Helpers\ScheduleSmsHelper;
 
 class SysNotifyPaidScheduleTriggerController extends _CommonController
 {
@@ -95,8 +96,10 @@ class SysNotifyPaidScheduleTriggerController extends _CommonController
         }
 
     
-        //SMS SUBMISSIN HERE...
+        //SMS PAYMENT NOTIFICATION HERE...
         if($request->is_notify_sms){
+
+            ScheduleSmsHelper::pay_schedule_trigger_send($result);
 
         }
         
@@ -106,6 +109,14 @@ class SysNotifyPaidScheduleTriggerController extends _CommonController
 
 
         return ["status"=>1, "message"=>"Paid Success!", "data_id"=> $result_id];
+    }
+
+    public function resend_sms_payment(Request $request){
+        $payment = PayModelHelper::get(SysNotifyPaidScheduleTrigger::class, $request)->find($request->sys_notify_paid_schedule_trigger_id);
+        if(!$payment){
+            return ["status"=>0, "message"=>"Not Found"];
+        }
+        return ScheduleSmsHelper::pay_schedule_trigger_send($payment);
     }
 
 
