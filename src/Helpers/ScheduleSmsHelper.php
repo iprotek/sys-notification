@@ -68,7 +68,11 @@ class ScheduleSmsHelper
         //SAVE SEND $trigger
         
 
-        return ["status"=>1, "message"=>"Sending completed"];
+        return [
+            "status"=>1, 
+            "message"=> isset($res) && isset($res["message"]) ? "Completed: (".count($schedule_trigger->selected_items).") ".$res["message"] : "Nothing found.",
+            "ref_schedule_id"=>$schedule_trigger->id
+        ];
 
 
     }
