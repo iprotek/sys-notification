@@ -16,7 +16,7 @@ class ScheduleSmsHelper
         //[total_due]
         //[total_paid]
         //[total_balance]
-        $person_name = $name_info->name;
+        $person_name = isset($name_info->name) ? $name_info->name : $name_info->text;
         $total_due = $schedule_trigger->total_due ?? 0;
         $total_paid = $schedule_trigger->total_paid ?? 0;
         $total_balance = $total_due - $total_paid;
