@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use iProtek\SysNotification\Models\SysNotifyScheduleSmsTrigger;
 use iProtek\SmsSender\Helpers\AutoSelectSmsHelper;
 use iProtek\SysNotification\Models\SysNotifyPaidScheduleTrigger;
+use Illuminate\Http\Request;
 
 class ScheduleSmsHelper
 { 
@@ -46,7 +47,7 @@ class ScheduleSmsHelper
 
     }
 
-    public static function schedule_trigger_send(SysNotifyScheduleSmsTrigger $schedule_trigger){
+    public static function schedule_trigger_send(SysNotifyScheduleSmsTrigger $schedule_trigger, Request $request = null){
         
 
         if(!$schedule_trigger->sms_client_api_request_link){
@@ -63,7 +64,7 @@ class ScheduleSmsHelper
             $item = json_decode(json_encode($item));
 
             $message = static::compose_message($item, $schedule_trigger);
-            $res = AutoSelectSmsHelper::send($item->mobile_no, $message, $schedule_trigger->sms_client_api_request_link, "sms-schedule-notification-".$schedule_trigger->id );
+            $res = AutoSelectSmsHelper::send($item->mobile_no, $message, $schedule_trigger->sms_client_api_request_link, "sms-schedule-notification-".$schedule_trigger->id, $request );
 
             //SENDS STARTS HERE
 
