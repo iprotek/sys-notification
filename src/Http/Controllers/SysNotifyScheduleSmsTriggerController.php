@@ -28,8 +28,9 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
         $data["model"]->where('sys_notify_scheduler_id', $request->scheduler_id);
 
         $data["model"]->select('*', \DB::raw("fnGetDateTimeFromScheduleTrigger(id) as datetime_schedule") );
+        
         return $data["model"]->paginate(10);
-        return $data["model"];
+        //return $data["model"];
     
     }
 
@@ -37,12 +38,26 @@ class SysNotifyScheduleSmsTriggerController extends _CommonController
 
         $schedule_trigger_id = $request->schedule_trigger_id;
 
+        $data = SmsClientMessage::on();
 
+        if($request->search_text && trim($request->search_text)){
+
+            $search = '%'.str_replace(' ', '%', $request->search_text ).'%';
+
+            $data->whereRaw(' CONCAT(to_number, message) LIKE ? ', [$search]);
+
+        }
+
+        $data->where('target_id', $request->type.'-schedule-notification-'. $schedule_trigger_id);
+
+        return $data->paginate(10);
+        /*
         $data = $this->apiModelSelect(SmsClientMessage::class, $request, true, false, " CONCAT(to_number, message) LIKE ? ", "id DESC");
 
         $data["model"]->where('target_id', $request->type.'-schedule-notification-'. $schedule_trigger_id);
 
         return $data["model"]->paginate(10);
+        */
     }
 
     
