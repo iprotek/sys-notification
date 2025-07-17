@@ -26,12 +26,12 @@ Route::middleware(['web'])->group(function(){
       Route::get('/', [SysNotifySchedulerController::class, 'index'])->name('.index');
     
       //TODO:: 
-      Route::prefix('triggers')->group(function(){
+      Route::prefix('triggers')->name('.triggers')->group(function(){
 
-        Route::get('sms/{scheduler}', [SysNotifyScheduleSmsTriggerController::class, 'index'])->name('.index');
+        Route::get('sms/{scheduler}', [SysNotifyScheduleSmsTriggerController::class, 'index'])->name('.sms-index');
 
         //TODO::Route::prefix('/email', )
-        Route::get('email/{scheduler}', [SysNotifyScheduleEmailTriggerController::class, 'index'])->name('.index');
+        Route::get('email/{scheduler}', [SysNotifyScheduleEmailTriggerController::class, 'index'])->name('.email-index');
         
         //TODO::Route::prefix('/notification', )
         Route::get('notification/{scheduler}', [SysNotifyScheduleNotificationTriggerController::class, 'index'])->name('.index');
