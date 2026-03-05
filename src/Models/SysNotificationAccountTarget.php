@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Models;
-
 namespace iProtek\SysNotification\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;

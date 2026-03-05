@@ -16,6 +16,7 @@ return new class extends Migration
             $table->iprotekDefaultColumns();
 
             $table->integer('notice_count');
+            $table->bigInteger('target_account_id');
 
         });
     }

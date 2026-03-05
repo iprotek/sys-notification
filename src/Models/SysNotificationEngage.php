@@ -18,7 +18,8 @@ class SysNotificationEngage extends _CommonModel
         "pay_deleted_by",
         "branch_id",
         
-        "notice_count"
+        "notice_count",
+        "target_account_id"
         
     ];
 

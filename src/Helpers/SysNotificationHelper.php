@@ -5,9 +5,55 @@ namespace iProtek\SysNotification\Helpers;
 use iProtek\SysNotification\Models\SysNotification;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use iProtek\SysNotification\Models\SysNotificationEngage;
+use iProtek\SysNotification\Models\SysNotificationAccountTarget;
+
 
 class SysNotificationHelper
 {
+
+    public static function notify($group_id, $html, $target_pay_account_ids = [], $name="custom", $type="custom"){
+
+        if(!is_array($target_pay_account_ids) || count($target_pay_account_ids) <= 0 ){
+            return ["status"=>0, "message"=>"Invalid account input"];
+        }
+
+        //CREATE NOTIFICATION
+        $notif = SysNotification::create([
+            "group_id"=>$group_id,
+            "status"=>"pending",
+            "summary"=>$html,
+            "type"=>$type,
+            "name"=>$name
+        ]);
+
+        //
+        foreach($target_pay_account_ids as $pay_id){
+            SysNotificationAccountTarget::create([
+                "group_id"=>$group_id,
+                "sys_notification_id"=>$notif->id,
+                "target_account_id"=>$pay_id
+            ]);
+
+            $engage = SysNotificationEngage::where('target_account_id', $pay_id)->first();
+            if(!$engage){
+                SysNotificationEngage::create([
+                    "group_id"=>$group_id,
+                    "notice_count"=>1
+                ]);
+            }
+            else{
+                $engage->notice_count = ($engage->notice_count )+1;
+                $engage->save();
+            }
+        }
+
+        return ["status"=>1, "message"=>"Successfully added."];
+
+    }
+
+
+
     public static function SystemUpdatesSummary(){
 
 
@@ -15,8 +61,16 @@ class SysNotificationHelper
         $all_summary = [];
         $total = 0;
 
+        //PRIORITY THE CUSTOM
+        $pay_account_id = \iProtek\Core\Helpers\PayHttp::pay_account_id();
+        $engage = SysNotificationEngage::where('target_account_id', $pay_account_id)->first();
+        if($engage){
+            $total = $engage->notice_count;
+        }
+
         //GIT
-        $system_updates = \DB::select("SELECT count(*) as count, `type`, min(created_at) as created_at FROM sys_notifications WHERE `type` in ('git', 'report', 'message', 'friend-request') AND status='pending' group by `type` ORDER BY created_at DESC "); // SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " )->get()[0];
+        $system_updates = \DB::select("SELECT count(*) as count, `type`, min(created_at) as created_at FROM sys_notifications WHERE `type` in ('git', 'report', 'message', 'friend-request') AND id IN ( select sys_notification_id FROM sys_notification_account_targets WHERE target_account_id = ? ) AND status='pending' group by `type` ", [$pay_account_id]); 
+        //SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " )->get()[0];
         foreach($system_updates as $update){
             $name = $update->type;
             if($update->type == 'git'){
@@ -36,10 +90,25 @@ class SysNotificationHelper
                 "type"=>"git",
                 "name"=>$name,
                 "count"=>$update->count,
+                "details"=>"",
                 "diff"=>static::diffForHumans($update->created_at)
             ];
-            $total = $total + $update->count;
+            //$total = $total + $update->count;
         }
+
+        $system_updates = \DB::select("SELECT id, `name`, `type`,`summary` , created_at as created_at FROM sys_notifications WHERE `type` in ('custom') AND id IN ( select sys_notification_id FROM sys_notification_account_targets WHERE target_account_id = ? ) AND status='pending' ORDER BY created_at DESC LIMIT 30", [$pay_account_id]); 
+        foreach($system_updates as $update){
+            $all_summary[]=[
+                "type"=>"custom",
+                "name"=>$update->name,
+                "count"=>0,
+                "details"=>$update->summary,
+                "diff"=>static::diffForHumans($update->created_at)
+            ];
+        }
+
+
+
 
         return ["summary"=>$all_summary,"total"=>$total];
     }
