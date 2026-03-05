@@ -16,7 +16,7 @@ class SysNotificationHelper
         $total = 0;
 
         //GIT
-        $system_updates = \DB::select("SELECT count(*) as count, `type`, min(created_at) as created_at FROM sys_notifications WHERE status='pending' group by `type` "); // SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " )->get()[0];
+        $system_updates = \DB::select("SELECT count(*) as count, `type`, min(created_at) as created_at FROM sys_notifications WHERE `type` in ('git', 'report', 'message', 'friend-request') AND status='pending' group by `type` ORDER BY created_at DESC "); // SysNotification::where(["status"=>"pending", "type"=>"git"])->selectRaw( " count(*) as count, min(created_at) as created_at " )->get()[0];
         foreach($system_updates as $update){
             $name = $update->type;
             if($update->type == 'git'){
@@ -30,9 +30,6 @@ class SysNotificationHelper
             }
             else if($update->type == 'friend-request'){
                 $name = "Friend Request";
-            }
-            else{
-                $name = strtoupper($name);
             }
            
             $all_summary[]=[
