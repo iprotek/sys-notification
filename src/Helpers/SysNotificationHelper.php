@@ -34,39 +34,86 @@ class SysNotificationHelper
                 "sys_notification_id"=>$notif->id,
                 "target_account_id"=>$pay_id
             ]);
-
-            $engage = SysNotificationEngage::where('target_account_id', $pay_id)->first();
-            if(!$engage){
-                SysNotificationEngage::create([
-                    "group_id"=>$group_id,
-                    "notice_count"=>1
-                ]);
-            }
-            else{
-                $engage->notice_count = ($engage->notice_count )+1;
-                $engage->save();
-            }
+            static::addNotificationCount($pay_id);
         }
 
         return ["status"=>1, "message"=>"Successfully added."];
 
     }
 
+    public static function clearNotificationCount( $pay_account_id, $branch_id = 0){
 
+        $client = \iProtek\Core\Helpers\PayHttp::client();        
+        //$pay_account_id = \iProtek\Core\Helpers\PayHttp::pay_account_id();        
+        $response = $client->post('notification/clear', [
+            "json" => [
+                "local_branch_id"=>$branch_id,
+                "pay_account_id"=>$pay_account_id
+            ]
+        ]);
+        $response_code = $response->getStatusCode();
+        if($response_code != 200 && $response_code != 201){
+            return ["status"=>0, "message"=>"Failed", "status_code"=>$response_code];
+        }
+        $result = json_decode($response->getBody(), true);
+        return $result;
+
+    }
+
+    public static function addNotificationCount( $pay_account_id, $branch_id = 0){
+
+        $client = \iProtek\Core\Helpers\PayHttp::client();
+        //$pay_account_id = \iProtek\Core\Helpers\PayHttp::pay_account_id();        
+        $response = $client->post('notification/add', [
+            "json" => [
+                "local_branch_id"=>$branch_id,
+                "pay_account_id"=>$pay_account_id
+            ]
+        ]);
+        $response_code = $response->getStatusCode();
+        if($response_code != 200 && $response_code != 201){
+            return ["status"=>0, "message"=>"Failed", "status_code"=>$response_code];
+        }
+        $result = json_decode($response->getBody(), true);
+        return $result;
+
+    }
+
+    public static function getNotificationCount( $pay_account_id, $branch_id = 0){
+
+        $total = 0;        
+        //PRIORITY THE CUSTOM
+        $client = \iProtek\Core\Helpers\PayHttp::client();
+        //$pay_account_id = \iProtek\Core\Helpers\PayHttp::pay_account_id();        
+        $response = $client->post('notification/get', [
+            "json" => [
+                "local_branch_id"=>$branch_id,
+                "pay_account_id"=>$pay_account_id
+            ]
+        ]);
+        $response_code = $response->getStatusCode();
+        if($response_code != 200 && $response_code != 201){
+            $total = 0;
+        }
+        else{
+            $result = json_decode($response->getBody(), true);
+            if($result["data"]){
+                $total = $result["data"]["notice_count"];
+            }
+        }
+        return $total;
+
+    }
 
     public static function SystemUpdatesSummary(){
 
 
         //Get System Updates
         $all_summary = [];
-        $total = 0;
+        
+        $pay_account_id = \iProtek\Core\Helpers\PayHttp::pay_account_id();  
+        $total = static::getNotificationCount($pay_account_id);
 
-        //PRIORITY THE CUSTOM
-        $pay_account_id = \iProtek\Core\Helpers\PayHttp::pay_account_id();
-        $engage = SysNotificationEngage::where('target_account_id', $pay_account_id)->first();
-        if($engage){
-            $total = $engage->notice_count;
-        }
 
         //GIT
         $system_updates = \DB::select("SELECT count(*) as count, `type`, min(created_at) as created_at FROM sys_notifications WHERE `type` in ('git', 'report', 'message', 'friend-request') AND id IN ( select sys_notification_id FROM sys_notification_account_targets WHERE target_account_id = ? ) AND status='pending' group by `type` ", [$pay_account_id]); 
