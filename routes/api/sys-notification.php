@@ -8,6 +8,7 @@ use iProtek\SysNotification\Http\Controllers\SysNotifyPaidScheduleTriggerControl
 use iProtek\Xrac\Http\Controllers\XbranchController;
 use Illuminate\Http\Request;
 use iProtek\SysNotification\Helpers\SysNotificationHelper;
+use iProtek\SysNotification\Http\Controllers\SysNotificationController;
 //use iProtek\Core\Http\Controllers\Manage\CmsController;
 //use App\Http\Controllers\Manage\BillingSharedAccountDefaultBranchController;
 
@@ -76,5 +77,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
         });
     
     });
+
+    Route::get('clear', [SysNotificationController::class, 'clear_notification'])->name('.clear');
 
 });

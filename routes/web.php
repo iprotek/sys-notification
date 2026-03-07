@@ -20,6 +20,7 @@ Route::middleware(['web'])->group(function(){
     Route::get('/system-updates-summary', [SysNotificationController::class, 'system_updates_summary'])->name('.check-system-summary');
     Route::post('/apply-system-updates', [SysNotificationController::class, 'apply_system_updates'])->name('.apply-system-updates');
   
+    Route::get('clear', [SysNotificationController::class, 'clear_notification'])->name('.clear');
     
     Route::prefix('scheduler')->name('.manage-notify-scheduler')->group(function(){
 

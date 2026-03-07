@@ -8,6 +8,7 @@ use App\Models\UserAdminPayAccount;
 use iProtek\SysNotification\Models\SysNotification;
 use Illuminate\Support\Facades\Artisan;
 use iProtek\Core\Http\Controllers\_Common\_CommonController;
+use iProtek\SysNotification\Helpers\SysNotificationHelper;
 
 class SysNotificationController extends _CommonController
 {
@@ -16,6 +17,14 @@ class SysNotificationController extends _CommonController
 
     public function index(Request $request){
         return $this->view("iprotek_sys_notification::index");
+    }
+
+    public function clear_notification(Request $request){
+
+        $pay_account_id = \iProtek\Core\Helpers\PayHttp::pay_account_id();
+        $result = SysNotificationHelper::clearNotificationCount($pay_account_id);
+        return ["status"=>1, "message"=>"Clear notification"];
+
     }
 
     public function system_updates(Request $request){
