@@ -24,7 +24,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
             return SysNotificationHelper::toTypeList();
         },
         "description"=>"System Notification types",
-        "is_visible"=>false,
+        "is_visible"=>true,
         "is_allow"=>true
     ])->name('.type-list');
     
@@ -35,7 +35,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
         Route::get('list', [
             "uses"=>[SysNotifySchedulerController::class, 'list'],
             "description"=>"Notification scheduler lists",
-            "is_visible"=>false,
+            "is_visible"=>true,
             "is_allow"=>false
         ])->name('.list');
 
@@ -49,21 +49,21 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
         Route::post('add', [
             "uses"=>[SysNotifySchedulerController::class, 'add'],
             "description"=>"Add notification scheduler",
-            "is_visible"=>false,
+            "is_visible"=>true,
             "is_allow"=>false
         ])->name('.add');
         
         Route::put('update', [ 
             "uses"=>[SysNotifySchedulerController::class, 'update'],
             "description"=>"Update notification scheduler",
-            "is_visible"=>false,
+            "is_visible"=>true,
             "is_allow"=>false
         ])->name('.update');
         
         Route::delete('list/{scheduler_id}', [
             "uses"=>[SysNotifySchedulerController::class, 'remove'],
             "description"=>"Update branches from centralize controls",
-            "is_visible"=>false,
+            "is_visible"=>true,
             "is_allow"=>false
         ])->name('.remove');
 
@@ -75,21 +75,21 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
                 Route::get('list', [ 
                     "uses"=>[SysNotifyScheduleSmsTriggerController::class, 'list'],
                     "description"=>"List of sms trigger to a schedule",
-                    "is_visible"=>false,
+                    "is_visible"=>true,
                     "is_allow"=>false
                 ])->name('.list');
 
                 Route::post('add', [
                     "uses"=>[SysNotifyScheduleSmsTriggerController::class, 'add'],
                     "description"=>"Add sms trigger on a schedule",
-                    "is_visible"=>false,
+                    "is_visible"=>true,
                     "is_allow"=>false
                 ])->name('.add');
                 
                 Route::put('update', [
                     "uses"=>[SysNotifyScheduleSmsTriggerController::class, 'update'],
                     "description"=>"Update sms trigger on a schedule",
-                    "is_visible"=>false,
+                    "is_visible"=>true,
                     "is_allow"=>false
                 ])->name('.update');
 
@@ -98,14 +98,14 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
                     Route::get('/', [
                         "uses"=>[SysNotifyScheduleSmsTriggerController::class, 'get'],
                         "description"=>"Get all trigger results on a specific trigger command in a schedule",
-                        "is_visible"=>false,
+                        "is_visible"=>true,
                         "is_allow"=>false
                     ])->name('.get');
                     
                     Route::get('trigger-list', [
                         "uses"=>[SysNotifyScheduleSmsTriggerController::class, 'trigger_list'],
                         "description"=>"List of trigger in a schedule",
-                        "is_visible"=>false,
+                        "is_visible"=>true,
                         "is_allow"=>false
                     ])->name('.trigger-list');
 
@@ -115,7 +115,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
                         Route::get('list',[ 
                             "uses"=>[SysNotifyPaidScheduleTriggerController::class, 'paid_list'],
                             "description"=>"Get paid list of specific trigger on a schedule",
-                            "is_visible"=>false,
+                            "is_visible"=>true,
                             "is_allow"=>false
                         ])->name('.list');
                         //ADD
@@ -129,7 +129,7 @@ Route::prefix('/sys-notification')->name('.sys-notification')->group(function(){
                         Route::post('resend-sms-payment', [
                             "uses"=>[SysNotifyPaidScheduleTriggerController::class, 'resend_sms_payment'],
                             "description"=>"Resend for payment info",
-                            "is_visible"=>false,
+                            "is_visible"=>true,
                             "is_allow"=>false
                         ])->name('.resend-sms-payment');
 
